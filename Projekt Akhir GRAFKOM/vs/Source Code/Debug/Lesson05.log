@@ -1,15 +1,7 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(534,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Lesson05.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  glad.c
-  BusterSword.cpp
-F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\BusterSword.cpp(117,2): warning C4305: 'initializing': truncation from 'double' to 'float'
-  Demo.cpp
-  MasterSword.cpp
-F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\MasterSword.cpp(160,13): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-  RenderEngine.cpp
-  Generating Code...
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-SOIL.lib(image_DXT.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'SOIL.lib(image_DXT.obj)' or at 'F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Debug\vc110.pdb'; linking object as if no debug info
-SOIL.lib(image_helper.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'SOIL.lib(image_helper.obj)' or at 'F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Debug\vc110.pdb'; linking object as if no debug info
-SOIL.lib(SOIL.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'SOIL.lib(SOIL.obj)' or at 'F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Debug\vc110.pdb'; linking object as if no debug info
-SOIL.lib(stb_image_aug.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'SOIL.lib(stb_image_aug.obj)' or at 'F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Debug\vc110.pdb'; linking object as if no debug info
-  Lesson05.vcxproj -> F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Debug\Projekt Akhir GRAFKOM.exe
+  MuseumIndoor.cpp
+F:\opengl\Projekt Akhir GRAFKOM\vs\Source Code\MuseumIndoor.cpp(194,2): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+F:\opengl\Projekt Akhir GRAFKOM\vs\Source Code\MuseumIndoor.cpp(521,2): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+SOIL.lib(image_DXT.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'SOIL.lib(image_DXT.obj)' or at 'F:\opengl\Projekt Akhir GRAFKOM\vs\Source Code\Debug\vc110.pdb'; linking object as if no debug info
+SOIL.lib(stb_image_aug.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'SOIL.lib(stb_image_aug.obj)' or at 'F:\opengl\Projekt Akhir GRAFKOM\vs\Source Code\Debug\vc110.pdb'; linking object as if no debug info
+  Lesson05.vcxproj -> F:\opengl\Projekt Akhir GRAFKOM\vs\Source Code\Debug\Projekt Akhir GRAFKOM.exe

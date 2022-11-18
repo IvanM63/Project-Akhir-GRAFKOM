@@ -100,45 +100,47 @@ void MasterSword::DrawAll() {
 	//4 kotak -> 0.25
 	//6 kotak -> 0.375
 	//7 kotak -> 0.4375
+
+	float p = 2.5;
 	
 	//Pegangan
-	DrawColoredCube(0, 0.375, 5, 0.125, 0.4375, 0.0625, 0.49412f, 0.12549f, 1.00000f);
+	DrawColoredCube(0, 0.375/p, 5/p, 0.125/p, 0.4375/p, 0.0625/p, 0.49412f, 0.12549f, 1.00000f);
 	//gagang
-	DrawColoredCube(0, 0.625, 5, 0.25, 0.0625, 0.1875, 0.38431f, 0.61569f, 0.76471f);
+	DrawColoredCube(0, 0.625/p, 5/p, 0.25/p, 0.0625/p, 0.1875/p, 0.38431f, 0.61569f, 0.76471f);
 	//di atas gagang
-	DrawColoredCube(0, 0.6875, 5, 0.125, 0.0625, 0.0625, 0.49412f, 0.12549f, 1.00000f);
+	DrawColoredCube(0, 0.6875/p, 5/p, 0.125/p, 0.0625/p, 0.0625/p, 0.49412f, 0.12549f, 1.00000f);
 	//kotak kuning
-	DrawColoredCube(0, 0.78125, 5, 0.125, 0.125, 0.0625, 1.00000f, 0.95686f, 0.00000f);
+	DrawColoredCube(0, 0.78125/p, 5/p, 0.125/p, 0.125/p, 0.0625/p, 1.00000f, 0.95686f, 0.00000f);
 	//di atas kuning
-	DrawColoredCube(0, 0.9375, 5, 0.125, 0.1875, 0.0625, 0.49412f, 0.12549f, 1.00000f);
+	DrawColoredCube(0, 0.9375/p, 5/p, 0.125/p, 0.1875/p, 0.0625/p, 0.49412f, 0.12549f, 1.00000f);
 	//kuning lagi
-	DrawColoredCube(0, 1.0625, 5, 0.125, 0.0625, 0.0625, 1.00000f, 0.95686f, 0.00000f);
+	DrawColoredCube(0, 1.0625/p, 5/p, 0.125/p, 0.0625/p, 0.0625/p, 1.00000f, 0.95686f, 0.00000f);
 	//bilah Putih
-	DrawColoredCube(0, 1.9375, 5, 0.125, 1.6875, 0.0625, 0.98039f, 1.00000f, 0.98824f);
+	DrawColoredCube(0, 1.9375/p, 5/p, 0.125/p, 1.6875/p, 0.0625/p, 0.98039f, 1.00000f, 0.98824f);
 	//bilah di atas Putih
-	DrawColoredCube(0, 2.8125, 5, 0.125, 0.125, 0.0625, 0.79608f, 1.00000f, 0.93333f);
+	DrawColoredCube(0, 2.8125/p, 5/p, 0.125/p, 0.125/p, 0.0625/p, 0.79608f, 1.00000f, 0.93333f);
 
 	//Pinggiran kiri
-	DrawColoredCube(-0.09375, 1.96875, 5, 0.0625, 1.625, 0.0625, 0.79608f, 1.00000f, 0.93333f);
-	DrawColoredCube(-0.15625, 1.3125, 5, 0.0625, 0.125, 0.0625, 0.79608f, 1.00000f, 0.93333f);
+	DrawColoredCube(-0.09375/p, 1.96875/p, 5/p, 0.0625/p, 1.625/p, 0.0625/p, 0.79608f, 1.00000f, 0.93333f);
+	DrawColoredCube(-0.15625/p, 1.3125/p, 5/p, 0.0625/p, 0.125/p, 0.0625/p, 0.79608f, 1.00000f, 0.93333f);
 
 	//Pinggiran kanan
-	DrawColoredCube(0.09375, 1.96875, 5, 0.0625, 1.625, 0.0625, 0.79608f, 1.00000f, 0.93333f);
-	DrawColoredCube(0.15625, 1.3125, 5, 0.0625, 0.125, 0.0625, 0.79608f, 1.00000f, 0.93333f);
+	DrawColoredCube(0.09375/p, 1.96875/p, 5/p, 0.0625/p, 1.625/p, 0.0625/p, 0.79608f, 1.00000f, 0.93333f);
+	DrawColoredCube(0.15625/p, 1.3125/p, 5/p, 0.0625/p, 0.125/p, 0.0625/p, 0.79608f, 1.00000f, 0.93333f);
 
 	//SampingkiriEmas
-	DrawColoredCube(-0.125, 0.78125, 5, 0.125, 0.125, 0.0625, 0.49412f, 0.12549f, 1.00000f);
-	DrawColoredCube(-0.21875, 0.75, 5, 0.0625, 0.1875, 0.0625, 0.49412f, 0.12549f, 1.00000f);
-	DrawColoredCube(-0.28125, 0.71875, 5, 0.0625, 0.125, 0.0625, 0.49412f, 0.12549f, 1.00000f);
-	DrawColoredCube(-0.34375, 0.78125, 5, 0.0625, 0.125, 0.0625, 0.49412f, 0.12549f, 1.00000f);
-	DrawColoredCube(-0.40625, 0.75, 5, 0.0625, 0.0625, 0.0625, 0.49412f, 0.12549f, 1.00000f);
+	DrawColoredCube(-0.125/p, 0.78125/p, 5/p, 0.125/p, 0.125/p, 0.0625/p, 0.49412f, 0.12549f, 1.00000f);
+	DrawColoredCube(-0.21875/p, 0.75/p, 5/p, 0.0625/p, 0.1875/p, 0.0625/p, 0.49412f, 0.12549f, 1.00000f);
+	DrawColoredCube(-0.28125/p, 0.71875/p, 5/p, 0.0625/p, 0.125/p, 0.0625/p, 0.49412f, 0.12549f, 1.00000f);
+	DrawColoredCube(-0.34375/p, 0.78125/p, 5/p, 0.0625/p, 0.125/p, 0.0625/p, 0.49412f, 0.12549f, 1.00000f);
+	DrawColoredCube(-0.40625/p, 0.75/p, 5/p, 0.0625/p, 0.0625/p, 0.0625/p, 0.49412f, 0.12549f, 1.00000f);
 
 	//SampingkiriEmas
-	DrawColoredCube(0.125, 0.78125, 5, 0.125, 0.125, 0.0625, 0.49412f, 0.12549f, 1.00000f);
-	DrawColoredCube(0.21875, 0.75, 5, 0.0625, 0.1875, 0.0625, 0.49412f, 0.12549f, 1.00000f);
-	DrawColoredCube(0.28125, 0.71875, 5, 0.0625, 0.125, 0.0625, 0.49412f, 0.12549f, 1.00000f);
-	DrawColoredCube(0.34375, 0.78125, 5, 0.0625, 0.125, 0.0625, 0.49412f, 0.12549f, 1.00000f);
-	DrawColoredCube(0.40625, 0.75, 5, 0.0625, 0.0625, 0.0625, 0.49412f, 0.12549f, 1.00000f);
+	DrawColoredCube(0.125/p, 0.78125/p, 5/p, 0.125/p, 0.125/p, 0.0625/p, 0.49412f, 0.12549f, 1.00000f);
+	DrawColoredCube(0.21875/p, 0.75/p, 5/p, 0.0625/p, 0.1875/p, 0.0625/p, 0.49412f, 0.12549f, 1.00000f);
+	DrawColoredCube(0.28125/p, 0.71875/p, 5/p, 0.0625/p, 0.125/p, 0.0625/p, 0.49412f, 0.12549f, 1.00000f);
+	DrawColoredCube(0.34375/p, 0.78125/p, 5/p, 0.0625/p, 0.125/p, 0.0625/p, 0.49412f, 0.12549f, 1.00000f);
+	DrawColoredCube(0.40625/p, 0.75/p, 5/p, 0.0625/p, 0.0625/p, 0.0625/p, 0.49412f, 0.12549f, 1.00000f);
 
 	
 
@@ -157,9 +159,9 @@ void MasterSword::DrawColoredCube(float xPos, float yPos, float zPos, float xSiz
 	GLint objectColorLoc = glGetUniformLocation(shaderProgram1, "objectColor");
 	glUniform3f(objectColorLoc, rColor, gColor, bColor);
 
-	xPos += mX + 1.5;
+	xPos += mX;
 	yPos += mY;
-	zPos += mZ-1;
+	zPos += mZ;
 
 	glm::mat4 model;
 	model = glm::translate(model, glm::vec3(xPos, yPos, zPos));

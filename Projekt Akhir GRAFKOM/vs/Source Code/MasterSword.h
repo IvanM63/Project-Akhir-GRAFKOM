@@ -19,8 +19,8 @@ public:
 private:
 	GLuint shaderProgram1, VBO3, VAO3, EBO3, texture3;
 	float mX = 0;
-	float mY = 0;
-	float mZ = 0;
+	float mY = 0.25;
+	float mZ = -10;
 	float sX = 0;
 	float sY = 0;
 	float sZ = 0;

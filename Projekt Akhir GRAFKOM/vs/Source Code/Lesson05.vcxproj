@@ -129,21 +129,30 @@
     <ClCompile Include="BusterSword.cpp" />
     <ClCompile Include="Demo.cpp" />
     <ClCompile Include="MasterSword.cpp" />
+    <ClCompile Include="MuseumIndoor.cpp" />
     <ClCompile Include="RenderEngine.cpp" />
+    <ClCompile Include="Camera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BusterSword.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Demo.h" />
     <ClInclude Include="MasterSword.h" />
+    <ClInclude Include="MuseumIndoor.h" />
     <ClInclude Include="RenderEngine.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="fragmentShader.frag" />
-    <None Include="planeShader.frag" />
-    <None Include="vertexShader.vert" />
+    <None Include="lightShader.frag" />
+    <None Include="lightShader.vert" />
+    <None Include="texturedShader.frag" />
+    <None Include="texturedShader.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\Kuli Ah\Semester 5\Grafika Komputer\Grafika Komputer dan Visualisasi\vs\Lesson05\marble.png" />
+    <Image Include="..\..\..\..\Kuli Ah\Semester 5\Grafika Komputer\Grafika Komputer dan Visualisasi\vs\Lesson07\crate_diffusemap.png" />
+    <Image Include="..\..\..\..\Kuli Ah\Semester 5\Grafika Komputer\Grafika Komputer dan Visualisasi\vs\Lesson07\crate_specularmap.png" />
+    <Image Include="..\..\..\..\Kuli Ah\Semester 5\Grafika Komputer\Grafika Komputer dan Visualisasi\vs\Lesson07\marble_diffusemap.png" />
+    <Image Include="..\..\..\..\Kuli Ah\Semester 5\Grafika Komputer\Grafika Komputer dan Visualisasi\vs\Lesson07\marble_specularmap.png" />
     <Image Include="crate.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

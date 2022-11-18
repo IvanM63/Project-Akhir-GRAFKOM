@@ -30,6 +30,12 @@
     <ClCompile Include="BusterSword.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MuseumIndoor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Demo.h">
@@ -44,15 +50,24 @@
     <ClInclude Include="BusterSword.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MuseumIndoor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="fragmentShader.frag">
+    <None Include="texturedShader.vert">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="vertexShader.vert">
+    <None Include="texturedShader.frag">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="planeShader.frag">
+    <None Include="lightShader.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="lightShader.frag">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
@@ -61,6 +76,18 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="..\..\..\..\Kuli Ah\Semester 5\Grafika Komputer\Grafika Komputer dan Visualisasi\vs\Lesson05\marble.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\..\..\Kuli Ah\Semester 5\Grafika Komputer\Grafika Komputer dan Visualisasi\vs\Lesson07\marble_diffusemap.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\..\..\Kuli Ah\Semester 5\Grafika Komputer\Grafika Komputer dan Visualisasi\vs\Lesson07\marble_specularmap.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\..\..\Kuli Ah\Semester 5\Grafika Komputer\Grafika Komputer dan Visualisasi\vs\Lesson07\crate_specularmap.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\..\..\Kuli Ah\Semester 5\Grafika Komputer\Grafika Komputer dan Visualisasi\vs\Lesson07\crate_diffusemap.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
