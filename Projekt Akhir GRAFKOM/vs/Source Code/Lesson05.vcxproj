@@ -130,6 +130,7 @@
     <ClCompile Include="Demo.cpp" />
     <ClCompile Include="MasterSword.cpp" />
     <ClCompile Include="MuseumIndoor.cpp" />
+    <ClCompile Include="Person.cpp" />
     <ClCompile Include="RenderEngine.cpp" />
     <ClCompile Include="Camera.cpp" />
   </ItemGroup>
@@ -139,6 +140,7 @@
     <ClInclude Include="Demo.h" />
     <ClInclude Include="MasterSword.h" />
     <ClInclude Include="MuseumIndoor.h" />
+    <ClInclude Include="Person.h" />
     <ClInclude Include="RenderEngine.h" />
   </ItemGroup>
   <ItemGroup>

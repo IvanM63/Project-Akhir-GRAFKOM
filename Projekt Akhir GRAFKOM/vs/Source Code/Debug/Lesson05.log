@@ -1,7 +1,4 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(534,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Lesson05.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  MuseumIndoor.cpp
-F:\opengl\Projekt Akhir GRAFKOM\vs\Source Code\MuseumIndoor.cpp(194,2): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
-F:\opengl\Projekt Akhir GRAFKOM\vs\Source Code\MuseumIndoor.cpp(521,2): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
-SOIL.lib(image_DXT.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'SOIL.lib(image_DXT.obj)' or at 'F:\opengl\Projekt Akhir GRAFKOM\vs\Source Code\Debug\vc110.pdb'; linking object as if no debug info
-SOIL.lib(stb_image_aug.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'SOIL.lib(stb_image_aug.obj)' or at 'F:\opengl\Projekt Akhir GRAFKOM\vs\Source Code\Debug\vc110.pdb'; linking object as if no debug info
+  Demo.cpp
+F:\opengl\Projekt Akhir GRAFKOM\vs\Source Code\Demo.cpp(104,8): warning C4553: '==': result of expression not used; did you intend '='?
   Lesson05.vcxproj -> F:\opengl\Projekt Akhir GRAFKOM\vs\Source Code\Debug\Projekt Akhir GRAFKOM.exe

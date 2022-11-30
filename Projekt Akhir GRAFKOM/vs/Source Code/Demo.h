@@ -9,6 +9,7 @@
 #include "MasterSword.h"
 #include "BusterSword.h"
 #include "MuseumIndoor.h"
+#include "Person.h"
 
 class Demo :
 	public RenderEngine
@@ -20,7 +21,7 @@ public:
 private:
 
 
-	GLuint shaderProgram, VBO, VAO, EBO, texture, VBO2, VAO2, EBO2, texture2, lightShader;
+	GLuint shaderProgram, VBO, VAO, EBO, texture, VBO2, VAO2, EBO2, texture2;
 	GLuint shaderPlane, texturedShader;
 	float viewCamX, viewCamY, viewCamZ, upCamX, upCamY, upCamZ, posCamX, posCamY, posCamZ, CAMERA_SPEED, fovy;
 	float angle = 0;
@@ -28,9 +29,22 @@ private:
 	//Inisiasi Lingkungan Indoor
 	MuseumIndoor mi1;
 
-	//Inisiasi Objeks
+	//Inisiasi Pedang
 	MasterSword ms1;
 	BusterSword bs1;
+
+	//Inisiasi Person
+	Person person1, person2, person3;
+	
+	//Light cube
+	GLuint lightShader, lightVBO, lightVAO, lightEBO;
+	void BuildLight();
+	void DrawLight();
+
+	//Posisi Light Pos
+	float xLight = 0.0f;
+	float yLight = 2.0f;
+	float zLight = 0.0f;
 
 	GLuint shadowmapShader, cubeVBO, cubeVAO, cubeEBO, cube_texture, planeVBO, planeVAO, planeEBO, plane_texture, stexture, stexture2;
 

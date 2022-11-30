@@ -11,7 +11,6 @@ Demo::~Demo() {
 }
 
 
-
 void Demo::Init() {
 	// build and compile our shader program
 	// ------------------------------------
@@ -22,10 +21,23 @@ void Demo::Init() {
 	//Build Lingkungan Musium
 	mi1.BuildAll(shaderProgram);
 
-	//Build Objek-Objek
+	//Build Swords
 	ms1.BuildCube(shaderProgram);
 	bs1.BuildAll(shaderProgram);
 
+	//Build Person 1
+	person1.BuildAll(shaderProgram, "knight_skin.png");
+	person1.position(-2,0,23);
+
+	//Build Person 2
+	person2.BuildAll(shaderProgram, "knight_skin.png");
+	person2.position(2, 0, 23);
+
+	//Build Person 3
+	person3.BuildAll(shaderProgram, "knight_skin.png");
+	person3.position(0, 0, 3);
+	person3.changeRotationX(0);
+	
 	//BuildTexturedCube();
 
 	InitCamera();
@@ -131,6 +143,7 @@ void Demo::ProcessInput(GLFWwindow* window) {
 void Demo::Update(double deltaTime) {
 	//ms1.anglep += (float) ((deltaTime * 1.5f) / 1000);
 	//ms1.moveX = -1.5;
+	//std::cout << 2.0/4.0;
 
 }
 
@@ -165,9 +178,14 @@ void Demo::Render() {
 	//Draw Lingkungan Musium
 	mi1.DrawAll();
 
-	//Draw Objek-Objek
+	//Draw Pedang
 	ms1.DrawAll();
 	bs1.DrawAll();
+
+	//DrawPerson
+	person1.DrawAll();
+	person2.DrawAll();
+	person3.DrawAll();
 
 	//DrawTexturedCube();
 
