@@ -43,10 +43,10 @@ private:
 
 	//Posisi Light Pos
 	float xLight = 0.0f;
-	float yLight = 2.0f;
-	float zLight = 0.0f;
+	float yLight = 5.0f;
+	float zLight = 15.0f;
 
-	GLuint shadowmapShader, cubeVBO, cubeVAO, cubeEBO, cube_texture, planeVBO, planeVAO, planeEBO, plane_texture, stexture, stexture2;
+	GLuint shadowmapShader, cubeVBO, cubeVAO, cubeEBO, cube_texture, textureCubeSpecular, planeVBO, planeVAO, planeEBO, plane_texture, stexture, stexture2;
 
 	virtual void Init();
 	virtual void DeInit();

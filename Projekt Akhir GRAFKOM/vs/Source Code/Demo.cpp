@@ -11,12 +11,103 @@ Demo::~Demo() {
 }
 
 
+void Demo::BuildLight() {
+	float vertices[] = {
+		// format position, Vector Normal
+		// front
+		-0.5, -0.5, 0.5,  0.0f,  0.0f,  1.0f, // 0
+		0.5, -0.5, 0.5,   0.0f,  0.0f,  1.0f, // 1
+		0.5,  0.5, 0.5,   0.0f,  0.0f,  1.0f, // 2
+		-0.5,  0.5, 0.5,  0.0f,  0.0f,  1.0f, // 3
+
+		// right
+		0.5,  0.5,  0.5, 1.0f,  0.0f,  0.0f, // 4
+		0.5,  0.5, -0.5, 1.0f,  0.0f,  0.0f, // 5
+		0.5, -0.5, -0.5, 1.0f,  0.0f,  0.0f, // 6
+		0.5, -0.5,  0.5, 1.0f,  0.0f,  0.0f, // 7
+
+		// back
+		-0.5, -0.5, -0.5, 0.0f,  0.0f,  -1.0f, // 8 
+		0.5,  -0.5, -0.5, 0.0f,  0.0f,  -1.0f, // 9
+		0.5,   0.5, -0.5, 0.0f,  0.0f,  -1.0f, // 10
+		-0.5,  0.5, -0.5, 0.0f,  0.0f,  -1.0f, // 11
+
+		// left
+		-0.5, -0.5, -0.5, -1.0f,  0.0f,  0.0f, // 12
+		-0.5, -0.5,  0.5, -1.0f,  0.0f,  0.0f, // 13
+		-0.5,  0.5,  0.5, -1.0f,  0.0f,  0.0f, // 14
+		-0.5,  0.5, -0.5, -1.0f,  0.0f,  0.0f, // 15
+
+		// upper
+		0.5, 0.5,  0.5, 0.0f,  1.0f,  0.0f, // 16
+		-0.5, 0.5, 0.5, 0.0f,  1.0f,  0.0f, // 17
+		-0.5, 0.5, -0.5,0.0f,  1.0f,  0.0f, // 18
+		0.5, 0.5, -0.5, 0.0f,  1.0f,  0.0f, // 19
+
+		// bottom
+		-0.5, -0.5, -0.5, 0.0f,  -1.0f,  0.0f, // 20
+		0.5, -0.5, -0.5,  0.0f,  -1.0f,  0.0f, // 21
+		0.5, -0.5,  0.5,  0.0f,  -1.0f,  0.0f, // 22
+		-0.5, -0.5,  0.5, 0.0f,  -1.0f,  0.0f, // 23
+	};
+
+	unsigned int indices[] = {
+		0,  1,  2,  0,  2,  3,   // front
+		4,  5,  6,  4,  6,  7,   // right
+		8,  9,  10, 8,  10, 11,  // back
+		12, 14, 13, 12, 15, 14,  // left
+		16, 18, 17, 16, 19, 18,  // upper
+		20, 22, 21, 20, 23, 22   // bottom
+	};
+
+	glGenVertexArrays(1, &lightVAO);
+	glGenBuffers(1, &lightVBO);
+	glGenBuffers(1, &lightEBO);
+	glBindVertexArray(lightVAO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, lightVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, lightEBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+	// position attribute
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+
+	glBindVertexArray(0);
+
+}
+
+void Demo::DrawLight() {
+	glUseProgram(lightShader);
+
+	// seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
+
+
+	//set mat4 model
+	glm::mat4 model;
+	model = glm::translate(model, glm::vec3(xLight, yLight, zLight));
+
+	model = glm::rotate(model, 0.0f, glm::vec3(0, 1, 0));
+
+	model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+
+	GLint modelLoc = glGetUniformLocation(this->lightShader, "model");
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+	glBindVertexArray(lightVAO);
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+}
+
 void Demo::Init() {
 	// build and compile our shader program
 	// ------------------------------------
 	//texturedShader = BuildShader("vertexShader.vert", "fragmentShader.frag", nullptr);
 	shaderProgram = BuildShader("texturedShader.vert", "texturedShader.frag", nullptr);
-	//shaderPlane = BuildShader("vertexShader.vert", "planeShader.frag", nullptr);
+	lightShader = BuildShader("lightShader.vert", "lightShader.frag", nullptr);
+	
+	BuildLight();
 
 	//Build Lingkungan Musium
 	mi1.BuildAll(shaderProgram);
@@ -38,9 +129,13 @@ void Demo::Init() {
 	person3.position(0, 0, 3);
 	person3.changeRotationX(0);
 	
-	//BuildTexturedCube();
+	BuildTexturedCube();
 
 	InitCamera();
+
+	UseShader(shaderProgram);
+	glUniform1i(glGetUniformLocation(shaderProgram, "material.diffuse"), 0);
+	glUniform1i(glGetUniformLocation(shaderProgram, "material.specular"), 1);
 }
 
 void Demo::DeInit() {
@@ -144,18 +239,79 @@ void Demo::Update(double deltaTime) {
 	//ms1.anglep += (float) ((deltaTime * 1.5f) / 1000);
 	//ms1.moveX = -1.5;
 	//std::cout << 2.0/4.0;
-
+	//zLight = 24.0f * cos(glfwGetTime()/2);
 }
 
 void Demo::Render() {
 	glViewport(0, 0, this->screenWidth, this->screenHeight);
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0, 0, 0, 1.0f);
+	glClearColor(0, 0, 1.0f, 1.0f);
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	glEnable(GL_DEPTH_TEST);
+
+	//FOR OBJEKT 
+
+	UseShader(shaderProgram);
+
+	GLint view_pos = glGetUniformLocation(shaderProgram, "viewPos");
+	glUniform3f(view_pos, posCamX, posCamY, posCamZ);
+
+
+	// material properties
+	GLint material_shininess = glGetUniformLocation(shaderProgram, "material.shininess");
+	glUniform1f(material_shininess, 64.0f);
+
+	// direction Light
+	/*glUniform3f(glGetUniformLocation(shaderProgram, "dirLight.direction"), 0.0f, -1.0f, -1.0f);
+	glUniform3f(glGetUniformLocation(shaderProgram, "dirLight.ambient"), 0.1f, 0.1f, 0.1f);
+	glUniform3f(glGetUniformLocation(shaderProgram, "dirLight.diffuse"), 1.0f, 0.0f, 0.0f);
+	glUniform3f(glGetUniformLocation(shaderProgram, "dirLight.specular"), 0.1f, 0.1f, 0.1f);*/
+	// point light 1
+	glUniform3f(glGetUniformLocation(shaderProgram, "pointLights[0].position"), xLight, yLight, zLight);
+	glUniform3f(glGetUniformLocation(shaderProgram, "pointLights[0].ambient"), 1.0f, 1.0f, 1.0f);
+	glUniform3f(glGetUniformLocation(shaderProgram, "pointLights[0].diffuse"), 1.0f, 1.0f, 1.0f);
+	glUniform3f(glGetUniformLocation(shaderProgram, "pointLights[0].specular"), 1.0f, 1.0f, 1.0f);
+	glUniform1f(glGetUniformLocation(shaderProgram, "pointLights[0].constant"), 1.0f);
+	glUniform1f(glGetUniformLocation(shaderProgram, "pointLights[0].linear"), 0.35f);
+	glUniform1f(glGetUniformLocation(shaderProgram, "pointLights[0].quadratic"), 0.44f);
+	// point light 2
+	glUniform3f(glGetUniformLocation(shaderProgram, "pointLights[1].position"), 0.0f, 5.0f, -15.0f);
+	glUniform3f(glGetUniformLocation(shaderProgram, "pointLights[1].ambient"), 1.0f, 0.0f, 0.0f);
+	glUniform3f(glGetUniformLocation(shaderProgram, "pointLights[1].diffuse"), 1.0f, 0.0f, 0.0f);
+	glUniform3f(glGetUniformLocation(shaderProgram, "pointLights[1].specular"), 1.0f, 0.0f, 0.0f);
+	glUniform1f(glGetUniformLocation(shaderProgram, "pointLights[1].constant"), 1.0f);
+	glUniform1f(glGetUniformLocation(shaderProgram, "pointLights[1].linear"), 0.22f);
+	glUniform1f(glGetUniformLocation(shaderProgram, "pointLights[1].quadratic"), 0.20f);
+	// point light 3
+	/*glUniform3f(glGetUniformLocation(shaderProgram, "pointLights[2].position"), 2.0f, 3.0f, 0.0f);
+	glUniform3f(glGetUniformLocation(shaderProgram, "pointLights[2].ambient"), 0.0f, 0.0f, 1.0f);
+	glUniform3f(glGetUniformLocation(shaderProgram, "pointLights[2].diffuse"), 0.0f, 0.0f, 1.0f);
+	glUniform3f(glGetUniformLocation(shaderProgram, "pointLights[2].specular"), 0.0f, 0.0f, 1.0f);
+	glUniform1f(glGetUniformLocation(shaderProgram, "pointLights[2].constant"), 1.0f);
+	glUniform1f(glGetUniformLocation(shaderProgram, "pointLights[2].linear"), 0.09f);
+	glUniform1f(glGetUniformLocation(shaderProgram, "pointLights[2].quadratic"), 0.032f);*/
+	// point light 4
+	/*glUniform3f(glGetUniformLocation(shaderProgram, "pointLights[3].position"), 0.0f, 3.0f, 2.0f);
+	glUniform3f(glGetUniformLocation(shaderProgram, "pointLights[3].ambient"), 0.0f, 1.0f, 1.0f);
+	glUniform3f(glGetUniformLocation(shaderProgram, "pointLights[3].diffuse"), 0.0f, 1.0f, 1.0f);
+	glUniform3f(glGetUniformLocation(shaderProgram, "pointLights[3].specular"), 0.0f, 1.0f, 1.0f);
+	glUniform1f(glGetUniformLocation(shaderProgram, "pointLights[3].constant"), 1.0f);
+	glUniform1f(glGetUniformLocation(shaderProgram, "pointLights[3].linear"), 0.09f);
+	glUniform1f(glGetUniformLocation(shaderProgram, "pointLights[3].quadratic"), 0.032f);*/
+	// spotLight
+	glUniform3fv(glGetUniformLocation(shaderProgram, "spotLight.position"), 1, &glm::vec3(posCamX, posCamY, posCamZ)[0]);
+	glUniform3fv(glGetUniformLocation(shaderProgram, "spotLight.direction"), 1, &glm::vec3(viewCamX, viewCamY, viewCamZ)[0]);
+	glUniform3f(glGetUniformLocation(shaderProgram, "spotLight.ambient"), 0.5f, 0.5f, 0.5f);
+	glUniform3f(glGetUniformLocation(shaderProgram, "spotLight.diffuse"), 0.1f, 0.1f, 0.1f);
+	glUniform3f(glGetUniformLocation(shaderProgram, "spotLight.specular"), 1.0f, 1.0f, 1.0f);
+	glUniform1f(glGetUniformLocation(shaderProgram, "spotLight.constant"), 1.0f);
+	glUniform1f(glGetUniformLocation(shaderProgram, "spotLight.linear"), 0.09f);
+	glUniform1f(glGetUniformLocation(shaderProgram, "spotLight.quadratic"), 0.032f);
+	glUniform1f(glGetUniformLocation(shaderProgram, "spotLight.cutOff"), glm::cos(glm::radians(12.5f)));
+	glUniform1f(glGetUniformLocation(shaderProgram, "spotLight.outerCutOff"), glm::cos(glm::radians(17.6f)));
 
 	// Pass perspective projection matrix
 	glm::mat4 projection = glm::perspective(fovy, (GLfloat)this->screenWidth / (GLfloat)this->screenHeight, 0.1f, 100.0f);
@@ -167,15 +323,9 @@ void Demo::Render() {
 	GLint viewLoc = glGetUniformLocation(this->shaderProgram, "view");
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 
-	// set lighting attributes
-	GLint lightPosLoc = glGetUniformLocation(this->shaderProgram, "lightPos");
-	glUniform3f(lightPosLoc, 0, 1, 0);
-	GLint viewPosLoc = glGetUniformLocation(this->shaderProgram, "viewPos");
-	glUniform3f(viewPosLoc, 0, 2, 4);
-	GLint lightColorLoc = glGetUniformLocation(this->shaderProgram, "lightColor");
-	glUniform3f(lightColorLoc, 1.0f, 1.0f, 1.05f);
-
+	//Draw OBJEKT using shaderProgram	
 	//Draw Lingkungan Musium
+	DrawTexturedCube();
 	mi1.DrawAll();
 
 	//Draw Pedang
@@ -187,7 +337,24 @@ void Demo::Render() {
 	person2.DrawAll();
 	person3.DrawAll();
 
-	//DrawTexturedCube();
+	//FOR LAMP
+
+	UseShader(lightShader);
+
+	// Pass perspective projection matrix
+	glm::mat4 projection2 = glm::perspective(fovy, (GLfloat)this->screenWidth / (GLfloat)this->screenHeight, 0.1f, 100.0f);
+	GLint projLoc2 = glGetUniformLocation(this->lightShader, "projection");
+	glUniformMatrix4fv(projLoc2, 1, GL_FALSE, glm::value_ptr(projection2));
+
+	// LookAt camera (position, target/direction, up)
+	glm::mat4 view2 = glm::lookAt(glm::vec3(posCamX, posCamY, posCamZ), glm::vec3(viewCamX, viewCamY, viewCamZ), glm::vec3(upCamX, upCamY, upCamZ));
+	GLint viewLoc2 = glGetUniformLocation(this->lightShader, "view");
+	glUniformMatrix4fv(viewLoc2, 1, GL_FALSE, glm::value_ptr(view2));
+
+	//Draw OBJEKT using lightShader
+	DrawLight();
+
+	
 
 	glDisable(GL_DEPTH_TEST);
 }
@@ -257,7 +424,7 @@ void Demo::BuildTexturedCube()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	int width, height;
-	unsigned char* image = SOIL_load_image("crate_diffusemap.png", &width, &height, 0, SOIL_LOAD_RGBA);
+	unsigned char* image = SOIL_load_image("container.png", &width, &height, 0, SOIL_LOAD_RGBA);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
 	SOIL_free_image_data(image);
 	glBindTexture(GL_TEXTURE_2D, 0);
@@ -266,7 +433,7 @@ void Demo::BuildTexturedCube()
 	glBindTexture(GL_TEXTURE_2D, stexture);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	image = SOIL_load_image("crate_specularmap.png", &width, &height, 0, SOIL_LOAD_RGBA);
+	image = SOIL_load_image("lighting_maps_specular_color.png", &width, &height, 0, SOIL_LOAD_RGBA);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
 	SOIL_free_image_data(image);
 	glBindTexture(GL_TEXTURE_2D, 0);
@@ -345,44 +512,38 @@ void Demo::BuildTexturedCube()
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(5 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(2);
 
-	// note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
 	// You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
 	// VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
 	glBindVertexArray(0);
 
-	// remember: do NOT unbind the EBO while a VAO is active as the bound element buffer object IS stored in the VAO; keep the EBO bound.
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
 void Demo::DrawTexturedCube()
 {
 	glUseProgram(shaderProgram);
 
+	// bind diffuse map
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, cube_texture);
-	glUniform1i(glGetUniformLocation(this->shaderProgram, "material.diffuse"), 0);
 
+	//bind specular map
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, stexture);
-	glUniform1i(glGetUniformLocation(this->shaderProgram, "material.specular"), 1);
 
-	GLint shininessMatLoc = glGetUniformLocation(this->shaderProgram, "material.shininess");
-	glUniform1f(shininessMatLoc, 10.0f);
+	glBindVertexArray(cubeVAO);
 
-	glBindVertexArray(cubeVAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
-
+	//set mat4 model
 	glm::mat4 model;
-	model = glm::translate(model, glm::vec3(0, 0, 0));
+	model = glm::translate(model, glm::vec3(0, 0.6, 0));
+
+	model = glm::rotate(model, angle, glm::vec3(0, 0, 1));
+
+	model = glm::scale(model, glm::vec3(1, 1, 1));
 
 	GLint modelLoc = glGetUniformLocation(this->shaderProgram, "model");
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-
-	glBindTexture(GL_TEXTURE_2D, 0);
-	glBindVertexArray(0);
 }
 
 

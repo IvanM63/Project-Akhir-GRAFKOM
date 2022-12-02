@@ -251,14 +251,14 @@ void MuseumIndoor::BuildDinding()
 	SOIL_free_image_data(image);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	/*glGenTextures(1, &stextureDinding);
+	glGenTextures(1, &stextureDinding);
 	glBindTexture(GL_TEXTURE_2D, stextureDinding);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	image = SOIL_load_image("wall_specular.png", &width, &height, 0, SOIL_LOAD_RGBA);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
 	SOIL_free_image_data(image);
-	glBindTexture(GL_TEXTURE_2D, 0);*/
+	glBindTexture(GL_TEXTURE_2D, 0);
 
 	// Build geometry
 	GLfloat vertices[] = {
@@ -271,29 +271,29 @@ void MuseumIndoor::BuildDinding()
 		-10.0, -0.5,  25.0,  0, 10, 0.0f,  1.0f,  0.0f, // 3 Kiri Belakang
 
 		// Tembok depan
-		-10.0, -0.5, -25.0,  0,  0, 0.0f,  0.0f,  -1.0f, // 4 Kiri Bawah
-		 10.0, -0.5, -25.0, 10,  0, 0.0f,  0.0f,  -1.0f, // 5 Kanan Bawah
-		 10.0, 10.0, -25.0,  3,  7, 0.0f,  0.0f,  -1.0f, // 6 Kanan Atas
-		-10.0, 10.0, -25.0,  0,  8, 0.0f,  0.0f,  -1.0f, // 7 Kiri Atas
+		-10.0, -0.5, -25.0,  0,  0, 0.0f,  0.0f,  1.0f, // 4 Kiri Bawah
+		 10.0, -0.5, -25.0, 10,  0, 0.0f,  0.0f,  1.0f, // 5 Kanan Bawah
+		 10.0, 10.0, -25.0,  3,  7, 0.0f,  0.0f,  1.0f, // 6 Kanan Atas
+		-10.0, 10.0, -25.0,  0,  8, 0.0f,  0.0f,  1.0f, // 7 Kiri Atas
 
 		// Tembok kiri
 		-10.0, -0.5, -25.0,  0,  0, 1.0f,  0.0f,  0.0f, // 8 Depan Atas
-		-10.0, -0.5,  25.0, 4,  0, 1.0f,  0.0f,  0.0f, // 9 Belakang Bawah
-		-10.0, 10.0,  25.0, 9, 5, 1.0f,  0.0f,  0.0f, // 10 Belakang Atas
-		-10.0, 10.0, -25.0,  0, 3, 1.0f,  0.0f,  0.0f, // 11 Depan Atas
+		-10.0, -0.5,  25.0,  4,  0, 1.0f,  0.0f,  0.0f, // 9 Belakang Bawah
+		-10.0, 10.0,  25.0,  9,  5, 1.0f,  0.0f,  0.0f, // 10 Belakang Atas
+		-10.0, 10.0, -25.0,  0,  3, 1.0f,  0.0f,  0.0f, // 11 Depan Atas
 
 		// Tembok Kanan
 		10.0, -0.5, -25.0,  0,  0, -1.0f,  0.0f,  0.0f, // 12 Depan Atas
-		10.0, -0.5,  25.0, 7,  0, -1.0f,  0.0f,  0.0f, // 13 Belakang Bawah
-		10.0, 10.0,  25.0, 10, 2, -1.0f,  0.0f,  0.0f, // 14 Belakang Atas
-		10.0, 10.0, -25.0,  0, 5, -1.0f,  0.0f,  0.0f, // 15 Depan Atas
+		10.0, -0.5,  25.0,  7,  0, -1.0f,  0.0f,  0.0f, // 13 Belakang Bawah
+		10.0, 10.0,  25.0, 10,  2, -1.0f,  0.0f,  0.0f, // 14 Belakang Atas
+		10.0, 10.0, -25.0,  0,  5, -1.0f,  0.0f,  0.0f, // 15 Depan Atas
 
 		// Tembok Belakang
 
-		-10.0, -0.5, 25.0,  0,  0, 0.0f,  0.0f,  1.0f, // 16 Kiri Bawah
-		 10.0, -0.5, 25.0, 7,  0, 0.0f,  0.0f,  1.0f, // 17 Kanan Bawah
-		 10.0, 10.0, 25.0, 6, 5, 0.0f,  0.0f,  1.0f, // 18 Kanan Atas
-		-10.0, 10.0, 25.0,  0, 4, 0.0f,  0.0f,  1.0f, // 19 Kiri Atas
+		-10.0, -0.5, 25.0,  0,  0, 0.0f,  0.0f,  -1.0f, // 16 Kiri Bawah
+		 10.0, -0.5, 25.0,  7,  0, 0.0f,  0.0f,  -1.0f, // 17 Kanan Bawah
+		 10.0, 10.0, 25.0,  6,  5, 0.0f,  0.0f,  -1.0f, // 18 Kanan Atas
+		-10.0, 10.0, 25.0,  0,  4, 0.0f,  0.0f,  -1.0f, // 19 Kiri Atas
 
 		// Atap
 		-10.0, 10.0, -25.0,  0,  0, 0.0f,  -1.0f,  0.0f, // 20 Kiri Depan
@@ -565,35 +565,30 @@ void MuseumIndoor::DrawAll() {
 	DrawLantai();
 	DrawDinding();
 	DrawKarpet();
-	//Pillar Sebelah kiri
+	////Pillar Sebelah kiri
 	DrawPillar(-3.5, -6);
 	DrawPillar(-3.5, 0);
 	DrawPillar(-3.5, 6);
 	DrawPillar(-3.5, 12);
 	DrawPillar(-3.5, 18);
-	//Pillar Sebelah Kanan
+	////Pillar Sebelah Kanan
 	DrawPillar(3.5, -6);
 	DrawPillar(3.5, 0);
 	DrawPillar(3.5, 6);
 	DrawPillar(3.5, 12);
 	DrawPillar(3.5, 18);
-	//Pintu Masuk
+	////Pintu Masuk
 	DrawDoor();
 }
 
 void MuseumIndoor::DrawLantai() {
 	glUseProgram(shaderProgram);
 
-	glActiveTexture(GL_TEXTURE2);
+	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, textureLantai);
-	glUniform1i(glGetUniformLocation(this->shaderProgram, "material.diffuse"), 2);
 
-	/*glActiveTexture(GL_TEXTURE3);
+	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, stexture2);
-	glUniform1i(glGetUniformLocation(this->shaderProgram, "material.specular"), 3);*/
-
-	GLint shininessMatLoc = glGetUniformLocation(this->shaderProgram, "material.shininess");
-	glUniform1f(shininessMatLoc, 0.9f);
 
 	glBindVertexArray(VAOLantai); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
 
@@ -610,16 +605,11 @@ void MuseumIndoor::DrawLantai() {
 void MuseumIndoor::DrawKarpet() {
 	glUseProgram(shaderProgram);
 
-	glActiveTexture(GL_TEXTURE2);
+	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, textureKarpet);
-	glUniform1i(glGetUniformLocation(this->shaderProgram, "material.diffuse"), 2);
 
-	/*glActiveTexture(GL_TEXTURE3);
-	glBindTexture(GL_TEXTURE_2D, stexture2);
-	glUniform1i(glGetUniformLocation(this->shaderProgram, "material.specular"), 3);*/
-
-	GLint shininessMatLoc = glGetUniformLocation(this->shaderProgram, "material.shininess");
-	glUniform1f(shininessMatLoc, 0.9f);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, stextureKarpet);
 
 	glBindVertexArray(VAOKarpet); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
 
@@ -636,16 +626,19 @@ void MuseumIndoor::DrawKarpet() {
 void MuseumIndoor::DrawDinding() {
 	glUseProgram(shaderProgram);
 
-	glActiveTexture(GL_TEXTURE2);
+	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, textureDinding);
-	glUniform1i(glGetUniformLocation(this->shaderProgram, "material.diffuse"), 2);
 
-	glActiveTexture(GL_TEXTURE3);
+	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, stextureDinding);
-	glUniform1i(glGetUniformLocation(this->shaderProgram, "material.specular"), 3);
 
-	GLint shininessMatLoc = glGetUniformLocation(this->shaderProgram, "material.shininess");
-	glUniform1f(shininessMatLoc, 1.0f);
+	//Specular
+	GLint light_specular = glGetUniformLocation(shaderProgram, "light.specular");
+	glUniform3f(light_specular, 0.2f, 0.2f, 0.2f);
+
+	// material properties
+	GLint material_shininess = glGetUniformLocation(shaderProgram, "material.shininess");
+	glUniform1f(material_shininess, 32.0f);
 
 	glBindVertexArray(VAODinding); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
 
@@ -662,16 +655,11 @@ void MuseumIndoor::DrawDinding() {
 void MuseumIndoor::DrawDoor() {
 	glUseProgram(shaderProgram);
 
-	glActiveTexture(GL_TEXTURE2);
+	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, textureDoor);
-	glUniform1i(glGetUniformLocation(this->shaderProgram, "material.diffuse"), 2);
 
-	glActiveTexture(GL_TEXTURE3);
+	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, stextureDoor);
-	glUniform1i(glGetUniformLocation(this->shaderProgram, "material.specular"), 3);
-
-	GLint shininessMatLoc = glGetUniformLocation(this->shaderProgram, "material.shininess");
-	glUniform1f(shininessMatLoc, 1.0f);
 
 	glBindVertexArray(VAODoor); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
 
@@ -691,14 +679,9 @@ void MuseumIndoor::DrawPillar(float xPos, float zPos)
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texturePillar);
-	glUniform1i(glGetUniformLocation(this->shaderProgram, "material.diffuse"), 0);
 
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, stexturePillar);
-	glUniform1i(glGetUniformLocation(this->shaderProgram, "material.specular"), 1);
-
-	GLint shininessMatLoc = glGetUniformLocation(this->shaderProgram, "material.shininess");
-	glUniform1f(shininessMatLoc, 10.0f);
 
 	glBindVertexArray(VAOPillar); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
 
