@@ -144,8 +144,19 @@
     <ClInclude Include="RenderEngine.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="debug_quad.frag" />
+    <None Include="debug_quad.vert" />
     <None Include="lightShader.frag" />
     <None Include="lightShader.vert" />
+    <None Include="point_shadow.frag" />
+    <None Include="point_shadow.vert" />
+    <None Include="point_shadows_depth.frag" />
+    <None Include="point_shadows_depth.geom" />
+    <None Include="point_shadows_depth.vert" />
+    <None Include="shadow_mapping.frag" />
+    <None Include="shadow_mapping.vert" />
+    <None Include="shadow_mapping_depth.frag" />
+    <None Include="shadow_mapping_depth.vert" />
     <None Include="texturedShader.frag" />
     <None Include="texturedShader.vert" />
   </ItemGroup>

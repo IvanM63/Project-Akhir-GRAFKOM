@@ -4,9 +4,11 @@ MuseumIndoor::MuseumIndoor() {
 
 }
 
-void MuseumIndoor::BuildAll(GLuint shaderProgram) {
-	//Masukin shaderProgram dari input ke shaderProgram kelas ini
-	this->shaderProgram = shaderProgram;
+void MuseumIndoor::BuildAll(unsigned int* depthCubeMap, unsigned int sizeOfLights) {
+
+	//Masukin depthCubeMap
+	this->depthCubeMap = depthCubeMap;
+	this->sizeOfLights = sizeOfLights;
 
 	//Build berbagai macam objek
 	BuildLantai();
@@ -14,6 +16,7 @@ void MuseumIndoor::BuildAll(GLuint shaderProgram) {
 	BuildKarpet();
 	BuildPillar();
 	BuildDoor();
+	BuildPedestal1();
 }
 
 void MuseumIndoor::BuildLantai()
@@ -561,24 +564,131 @@ void MuseumIndoor::BuildDoor()
 	glBindVertexArray(0); // Unbind VAO
 }
 
-void MuseumIndoor::DrawAll() {
+void MuseumIndoor::BuildPedestal1(){
+	// load image into texture memory
+	// ------------------------------
+	// Load and create a texture 
+	glGenTextures(1, &texturePedestal1);
+	glBindTexture(GL_TEXTURE_2D, texturePedestal1);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	int width, height;
+	unsigned char* image = SOIL_load_image("concrete.png", &width, &height, 0, SOIL_LOAD_RGBA);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+	SOIL_free_image_data(image);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	glGenTextures(1, &stexturePedestal1);
+	glBindTexture(GL_TEXTURE_2D, stexturePedestal1);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	image = SOIL_load_image("lighting_maps_specular_color.png", &width, &height, 0, SOIL_LOAD_RGBA);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+	SOIL_free_image_data(image);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	// set up vertex data (and buffer(s)) and configure vertex attributes
+	// ------------------------------------------------------------------
+	float vertices[] = {
+		// format position, tex coords
+		// front
+		-0.75, -0.32,  0.29, 0, 0, 0.0f,  0.0f,  1.0f, // 0
+		 0.75, -0.32,  0.29, 1, 0,  0.0f,  0.0f,  1.0f, // 1
+		 0.25,  0.32,  0.29, 1, 1,  0.0f,  0.0f,  1.0f, // 2
+		-0.25,  0.32,  0.29, 0, 1, 0.0f,  0.0f,  1.0f, // 3
+
+		// right
+		 0.25,  0.32,  0.29, 0, 0, 1.0f,  0.0f,  0.0f, // 4
+		 0.25,  0.32, -0.29, 1, 0, 1.0f,  0.0f,  0.0f, // 5
+		 0.75, -0.32, -0.29, 1, 1, 1.0f,  0.0f,  0.0f, // 6
+		 0.75, -0.32,  0.29, 0, 1, 1.0f,  0.0f,  0.0f, // 7
+
+		// back
+		-0.75, -0.32, -0.29, 0, 0, 0.0f,  0.0f,  -1.0f, // 8 
+		 0.75, -0.32, -0.29, 1, 0, 0.0f,  0.0f,  -1.0f, // 9
+		 0.25,  0.32, -0.29, 1, 1, 0.0f,  0.0f,  -1.0f, // 10
+		-0.25,  0.32, -0.29, 0, 1, 0.0f,  0.0f,  -1.0f, // 11
+
+		// left
+		-0.75, -0.32, -0.29, 0, 0, -1.0f,  0.0f,  0.0f, // 12
+		-0.75, -0.32,  0.29, 1, 0, -1.0f,  0.0f,  0.0f, // 13
+		-0.25,  0.32,  0.29, 1, 1, -1.0f,  0.0f,  0.0f, // 14
+		-0.25,  0.32, -0.29, 0, 1, -1.0f,  0.0f,  0.0f, // 15
+
+		// upper
+		 0.25,  0.32,  0.29, 0, 0,   0.0f,  1.0f,  0.0f, // 16
+		-0.25,  0.32,  0.29, 1, 0,   0.0f,  1.0f,  0.0f, // 17
+		-0.25,  0.32, -0.29, 1, 1,  0.0f,  1.0f,  0.0f, // 18
+		 0.25,  0.32, -0.29, 0, 1,   0.0f,  1.0f,  0.0f, // 19
+
+		// bottom
+		-0.75, -0.32, -0.29, 0, 0, 0.0f,  -1.0f,  0.0f, // 20
+		 0.75, -0.32, -0.29, 1, 0,  0.0f,  -1.0f,  0.0f, // 21
+		 0.75, -0.32,  0.29, 1, 1,  0.0f,  -1.0f,  0.0f, // 22
+		-0.75, -0.32,  0.29, 0, 1, 0.0f,  -1.0f,  0.0f, // 23
+	};
+
+	unsigned int indices[] = {
+		0,  1,  2,  0,  2,  3,   // front
+		4,  5,  6,  4,  6,  7,   // right
+		8,  9,  10, 8,  10, 11,  // back
+		12, 14, 13, 12, 15, 14,  // left
+		16, 18, 17, 16, 19, 18,  // upper
+		20, 22, 21, 20, 23, 22   // bottom
+	};
+
+	glGenVertexArrays(1, &VAOPedestal1);
+	glGenBuffers(1, &VBOPedestal1);
+	glGenBuffers(1, &EBOPedestal1);
+	// bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
+	glBindVertexArray(VAOPedestal1);
+
+	glBindBuffer(GL_ARRAY_BUFFER, VBOPedestal1);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBOPedestal1);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+	// define position pointer layout 0
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(0 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(0);
+
+	// define texcoord pointer layout 1
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(1);
+
+	// define normal pointer layout 2
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(5 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(2);
+
+	// You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
+	// VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
+	glBindVertexArray(0);
+}
+
+void MuseumIndoor::DrawAll(GLuint shaderProgram) {
+	//Masukin shaderProgram dari input ke shaderProgram kelas ini
+	this->shaderProgram = shaderProgram;
+
 	DrawLantai();
 	DrawDinding();
 	DrawKarpet();
-	////Pillar Sebelah kiri
+	//Pillar Sebelah kiri
 	DrawPillar(-3.5, -6);
 	DrawPillar(-3.5, 0);
 	DrawPillar(-3.5, 6);
 	DrawPillar(-3.5, 12);
 	DrawPillar(-3.5, 18);
-	////Pillar Sebelah Kanan
+	//Pillar Sebelah Kanan
 	DrawPillar(3.5, -6);
 	DrawPillar(3.5, 0);
 	DrawPillar(3.5, 6);
 	DrawPillar(3.5, 12);
 	DrawPillar(3.5, 18);
-	////Pintu Masuk
+	//Pintu Masuk
 	DrawDoor();
+	//Pedetals
+	DrawPedestal1(0, -0.25, -22.5);
 }
 
 void MuseumIndoor::DrawLantai() {
@@ -587,8 +697,10 @@ void MuseumIndoor::DrawLantai() {
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, textureLantai);
 
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, stexture2);
+	for (unsigned int i = 0; i < sizeOfLights; ++i) {
+		glActiveTexture(GL_TEXTURE1 + i + 1);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, depthCubeMap[i]);
+	}
 
 	glBindVertexArray(VAOLantai); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
 
@@ -608,8 +720,10 @@ void MuseumIndoor::DrawKarpet() {
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, textureKarpet);
 
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, stextureKarpet);
+	for (unsigned int i = 0; i < sizeOfLights; ++i) {
+		glActiveTexture(GL_TEXTURE1 + i + 1);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, depthCubeMap[i]);
+	}
 
 	glBindVertexArray(VAOKarpet); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
 
@@ -629,8 +743,10 @@ void MuseumIndoor::DrawDinding() {
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, textureDinding);
 
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, stextureDinding);
+	for (unsigned int i = 0; i < sizeOfLights; ++i) {
+		glActiveTexture(GL_TEXTURE1 + i + 1);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, depthCubeMap[i]);
+	}
 
 	//Specular
 	GLint light_specular = glGetUniformLocation(shaderProgram, "light.specular");
@@ -658,8 +774,10 @@ void MuseumIndoor::DrawDoor() {
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, textureDoor);
 
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, stextureDoor);
+	for (unsigned int i = 0; i < sizeOfLights; ++i) {
+		glActiveTexture(GL_TEXTURE1 + i + 1);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, depthCubeMap[i]);
+	}
 
 	glBindVertexArray(VAODoor); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
 
@@ -680,8 +798,10 @@ void MuseumIndoor::DrawPillar(float xPos, float zPos)
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texturePillar);
 
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, stexturePillar);
+	for (unsigned int i = 0; i < sizeOfLights; ++i) {
+		glActiveTexture(GL_TEXTURE1 + i + 1);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, depthCubeMap[i]);
+	}
 
 	glBindVertexArray(VAOPillar); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
 
@@ -725,5 +845,33 @@ void MuseumIndoor::DrawPillar(float xPos, float zPos)
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glBindVertexArray(0);
+}
+
+void MuseumIndoor::DrawPedestal1(float xPos, float yPos, float zPos){
+	glUseProgram(shaderProgram);
+
+	// bind diffuse map
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texturePedestal1);
+
+	for (unsigned int i = 0; i < sizeOfLights; ++i) {
+		glActiveTexture(GL_TEXTURE1 + i + 1);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, depthCubeMap[i]);
+	}
+
+	glBindVertexArray(VAOPedestal1);
+
+	//set mat4 model
+	glm::mat4 model;
+	model = glm::translate(model, glm::vec3(xPos, yPos, zPos));
+
+	model = glm::rotate(model, 0.0f, glm::vec3(0, 0, 1));
+
+	model = glm::scale(model, glm::vec3(0.8, 0.8, 0.8));
+
+	GLint modelLoc = glGetUniformLocation(this->shaderProgram, "model");
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 }
 

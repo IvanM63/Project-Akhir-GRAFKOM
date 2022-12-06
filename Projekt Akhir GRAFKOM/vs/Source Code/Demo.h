@@ -19,10 +19,11 @@ public:
 	~Demo();
 
 private:
-
+	//static int sizeOfLights = 2;
 
 	GLuint shaderProgram, VBO, VAO, EBO, texture, VBO2, VAO2, EBO2, texture2;
 	GLuint shaderPlane, texturedShader;
+	
 	float viewCamX, viewCamY, viewCamZ, upCamX, upCamY, upCamZ, posCamX, posCamY, posCamZ, CAMERA_SPEED, fovy;
 	float angle = 0;
 
@@ -38,13 +39,21 @@ private:
 	
 	//Light cube
 	GLuint lightShader, lightVBO, lightVAO, lightEBO;
+	GLuint lightSegitigaVBO, lightSegitigaVAO, lightSegitigaEBO;
 	void BuildLight();
-	void DrawLight();
+	void BuildLightSegitiga();
+	void DrawLight(float lightX, float lightY, float lightZ, float colorR, float colorG, float colorB);
+	void DrawLightSegitiga(float lightX, float lightY, float lightZ, float colorR, float colorG, float colorB);
 
 	//Posisi Light Pos
+	//Light 1
 	float xLight = 0.0f;
-	float yLight = 5.0f;
+	float yLight = 8.0f;
 	float zLight = 15.0f;
+
+	//Light 2
+	
+	//Light 3
 
 	GLuint shadowmapShader, cubeVBO, cubeVAO, cubeEBO, cube_texture, textureCubeSpecular, planeVBO, planeVAO, planeEBO, plane_texture, stexture, stexture2;
 
@@ -57,7 +66,30 @@ private:
 	void StrafeCamera(float speed);
 	void RotateCamera(float speed);
 	void InitCamera();
+
+	//Textured Cube
+	GLuint textureCube;
 	void BuildTexturedCube();
-	void DrawTexturedCube();
+	void DrawTexturedCube(GLuint shader);
+
+	void BuildPlane();
+	void DrawPlane(GLuint shader);
+
+	GLuint shader, simpleDepthShader;
+	const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
+
+	unsigned int depthCubeMap[2];
+	unsigned int depthMapFBO[2];
+
+	glm::vec3 lightPos[2] = {
+		glm::vec3(0.0, 5.0, 0.0),
+		glm::vec3(0.0, 5.0, 5.0),
+		//glm::vec3(0.0, 0.1, -20.5)
+	};
+
+	unsigned int sizeOfLights = sizeof(depthCubeMap) / sizeof(depthCubeMap[0]);
+
+	bool shadows = true;
+	bool shadowsKeyPressed = false;
 };
 

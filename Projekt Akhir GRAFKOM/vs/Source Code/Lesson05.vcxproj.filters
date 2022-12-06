@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Resource Files\shadow">
+      <UniqueIdentifier>{bcb23344-559b-48e4-af85-6e6381f9e3d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Point Shadow">
+      <UniqueIdentifier>{6ddf840c-a27a-47d4-bd1b-4e5b7e260c6c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\deps\include\glad\glad.c">
@@ -75,6 +81,39 @@
     </None>
     <None Include="lightShader.frag">
       <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shadow_mapping.frag">
+      <Filter>Resource Files\shadow</Filter>
+    </None>
+    <None Include="shadow_mapping.vert">
+      <Filter>Resource Files\shadow</Filter>
+    </None>
+    <None Include="shadow_mapping_depth.frag">
+      <Filter>Resource Files\shadow</Filter>
+    </None>
+    <None Include="shadow_mapping_depth.vert">
+      <Filter>Resource Files\shadow</Filter>
+    </None>
+    <None Include="debug_quad.vert">
+      <Filter>Resource Files\shadow</Filter>
+    </None>
+    <None Include="debug_quad.frag">
+      <Filter>Resource Files\shadow</Filter>
+    </None>
+    <None Include="point_shadows_depth.geom">
+      <Filter>Resource Files\Point Shadow</Filter>
+    </None>
+    <None Include="point_shadows_depth.frag">
+      <Filter>Resource Files\Point Shadow</Filter>
+    </None>
+    <None Include="point_shadow.vert">
+      <Filter>Resource Files\Point Shadow</Filter>
+    </None>
+    <None Include="point_shadows_depth.vert">
+      <Filter>Resource Files\Point Shadow</Filter>
+    </None>
+    <None Include="point_shadow.frag">
+      <Filter>Resource Files\Point Shadow</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

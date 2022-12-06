@@ -11,20 +11,24 @@ class MuseumIndoor {
 public:
 	MuseumIndoor();
 	//Build obJekt
-	void BuildAll(GLuint shaderProgram);
+	//|-------------------------------------|
+	void BuildAll(unsigned int* depthCubeMap, unsigned int sizeOfLights);
 	void BuildLantai();
 	void BuildDinding();
 	void BuildKarpet();
 	void BuildPillar();
 	void BuildDoor();
+	void BuildPedestal1();
 
 	//Render objekt
-	void DrawAll();
+	//|-------------------------------------|
+	void DrawAll(GLuint shaderProgram);
 	void DrawLantai();
 	void DrawDinding();
 	void DrawKarpet();
 	void DrawPillar(float xPos, float zPos);
 	void DrawDoor();
+	void DrawPedestal1(float xPos, float yPos, float zPos);
 
 private:
 	GLuint shaderProgram;
@@ -34,4 +38,7 @@ private:
 	GLuint VBOKarpet, VAOKarpet, EBOKarpet, textureKarpet, stextureKarpet;
 	GLuint VBODoor, VAODoor, EBODoor, textureDoor, stextureDoor;
 	GLuint stexture2, plane_texture, dindingTexture;
+	GLuint VBOPedestal1, VAOPedestal1, EBOPedestal1, texturePedestal1, stexturePedestal1;
+	unsigned int * depthCubeMap;
+	unsigned int sizeOfLights;
 };
