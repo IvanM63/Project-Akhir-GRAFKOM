@@ -19,6 +19,12 @@
     <Filter Include="Resource Files\Point Shadow">
       <UniqueIdentifier>{6ddf840c-a27a-47d4-bd1b-4e5b7e260c6c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Swords">
+      <UniqueIdentifier>{3b015edb-4395-4d2c-abac-d5065433a638}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Swords">
+      <UniqueIdentifier>{d8fae5e5-4b08-4ed2-ba91-2ebb0735e5ab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\deps\include\glad\glad.c">
@@ -30,12 +36,6 @@
     <ClCompile Include="RenderEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MasterSword.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BusterSword.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MuseumIndoor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -45,18 +45,21 @@
     <ClCompile Include="Person.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BusterSword.cpp">
+      <Filter>Source Files\Swords</Filter>
+    </ClCompile>
+    <ClCompile Include="lightSaber.cpp">
+      <Filter>Source Files\Swords</Filter>
+    </ClCompile>
+    <ClCompile Include="MasterSword.cpp">
+      <Filter>Source Files\Swords</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Demo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RenderEngine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MasterSword.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BusterSword.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MuseumIndoor.h">
@@ -67,6 +70,15 @@
     </ClInclude>
     <ClInclude Include="Person.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BusterSword.h">
+      <Filter>Header Files\Swords</Filter>
+    </ClInclude>
+    <ClInclude Include="lightSaber.h">
+      <Filter>Header Files\Swords</Filter>
+    </ClInclude>
+    <ClInclude Include="MasterSword.h">
+      <Filter>Header Files\Swords</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -372,23 +372,6 @@ void Demo::Init() {
 	lightShader = BuildShader("lightShader.vert", "lightShader.frag", nullptr);
 	shader = BuildShader("point_shadow.vert", "point_shadow.frag", nullptr);
 	simpleDepthShader = BuildShader("point_shadows_depth.vert", "point_shadows_depth.frag", "point_shadows_depth.geom");
-
-	//Build Swords
-	ms1.BuildCube(shaderProgram);
-	bs1.BuildAll(shaderProgram);
-
-	//Build Person 1
-	person1.BuildAll(shaderProgram, "knight_skin.png");
-	person1.position(-2,0,23);
-
-	//Build Person 2
-	person2.BuildAll(shaderProgram, "knight_skin.png");
-	person2.position(2, 0, 23);
-
-	//Build Person 3
-	person3.BuildAll(shaderProgram, "herobrine_skin.png");
-	person3.position(0, 0, 3);
-	person3.changeRotationX(0);
 	
 	BuildPlane();
 	BuildTexturedCube();
@@ -424,15 +407,33 @@ void Demo::Init() {
 	//Build Lingkungan Musium
 	mi1.BuildAll(depthCubeMap, sizeOfLights);
 
+	//Build Swords
+	ms1.BuildAll();
+	bs1.BuildAll(shaderProgram);
+
 	//Build Lampu Beda shader
 	BuildLight();
 	BuildLightSegitiga();
+
+	//Build Person 1
+	person1.BuildAll(shaderProgram, "knight_skin.png");
+	person1.position(-2, 0, 23);
+
+	//Build Person 2
+	person2.BuildAll(shaderProgram, "knight_skin.png");
+	person2.position(2, 0, 23);
+
+	//Build Person 3
+	person3.BuildAll(shaderProgram, "knight_skin.png");
+	person3.position(0, 0, 15);
+	person3.changeRotationX(0);
 
 	//Shader Config for Shadow
 	UseShader(shader);
 	glUniform1i(glGetUniformLocation(shader, "material.diffuse"), 0);
 	glUniform1i(glGetUniformLocation(shader, "material.specular"), 1);
-	glUniform1i(glGetUniformLocation(shader, "material.depthMap"), 2);
+	//glUniform1i(glGetUniformLocation(shader, "depthMap"), 2);
+
 
 	/*UseShader(shaderProgram);
 	glUniform1i(glGetUniformLocation(shaderProgram, "material.diffuse"), 0);
@@ -541,8 +542,8 @@ void Demo::Update(double deltaTime) {
 	//ms1.moveX = -1.5;
 	//std::cout << sizeOfLights;
 	//zLight = 24.0f * cos(glfwGetTime()/2);
-
-	//lightPos[0].z = 18.0 * cos(glfwGetTime()/10);
+	//lightPos[2].z = 8.0 * cos(glfwGetTime());
+	person3.position(0, 0, 15.0 * cos(glfwGetTime())/100);
 }
 
 void Demo::Render() {
@@ -556,30 +557,30 @@ void Demo::Render() {
 
 	glEnable(GL_DEPTH_TEST);
 
-	// point light 1 merah
+	// point light 1 putih
 	glUniform3f(glGetUniformLocation(shader, "pointLights[0].position"), lightPos[0].x, lightPos[0].y, lightPos[0].z);
-	glUniform3f(glGetUniformLocation(shader, "pointLights[0].ambient"), 0.5f, 0.0f, 0.0f);
-	glUniform3f(glGetUniformLocation(shader, "pointLights[0].diffuse"), 0.5f, 0.0f, 0.0f);
-	glUniform3f(glGetUniformLocation(shader, "pointLights[0].specular"), 0.5f, 0.0f, 0.0f);
+	glUniform3f(glGetUniformLocation(shader, "pointLights[0].ambient"), 0.5f, 0.5f, 0.5f);
+	glUniform3f(glGetUniformLocation(shader, "pointLights[0].diffuse"), 0.5f, 0.5f, 0.5f);
+	glUniform3f(glGetUniformLocation(shader, "pointLights[0].specular"), 0.5f, 0.5f, 0.5f);
 	glUniform1f(glGetUniformLocation(shader, "pointLights[0].constant"), 1.0f);
-	glUniform1f(glGetUniformLocation(shader, "pointLights[0].linear"), 0.09f);
-	glUniform1f(glGetUniformLocation(shader, "pointLights[0].quadratic"), 0.032f);
-	// point light 2 puti
+	glUniform1f(glGetUniformLocation(shader, "pointLights[0].linear"), 0.14f);
+	glUniform1f(glGetUniformLocation(shader, "pointLights[0].quadratic"), 0.07f);
+	// point light 2 merah
 	glUniform3f(glGetUniformLocation(shader, "pointLights[1].position"), lightPos[1].x, lightPos[1].y, lightPos[1].z);
-	glUniform3f(glGetUniformLocation(shader, "pointLights[1].ambient"), 0.5f, 0.5f, 0.5f);
-	glUniform3f(glGetUniformLocation(shader, "pointLights[1].diffuse"), 0.5f, 0.5f, 0.5f);
-	glUniform3f(glGetUniformLocation(shader, "pointLights[1].specular"), 0.5f, 0.5f, 0.5f);
+	glUniform3f(glGetUniformLocation(shader, "pointLights[1].ambient"), 0.5f, 0.0f, 0.0f);
+	glUniform3f(glGetUniformLocation(shader, "pointLights[1].diffuse"), 0.5f, 0.0f, 0.0f);
+	glUniform3f(glGetUniformLocation(shader, "pointLights[1].specular"), 0.5f, 0.0f, 0.0f);
 	glUniform1f(glGetUniformLocation(shader, "pointLights[1].constant"), 1.0f);
-	glUniform1f(glGetUniformLocation(shader, "pointLights[1].linear"), 0.09f);
-	glUniform1f(glGetUniformLocation(shader, "pointLights[1].quadratic"), 0.032f);
+	glUniform1f(glGetUniformLocation(shader, "pointLights[1].linear"), 0.14f);
+	glUniform1f(glGetUniformLocation(shader, "pointLights[1].quadratic"), 0.07f);
 	// point light 4 Kuning
 	glUniform3f(glGetUniformLocation(shader, "pointLights[2].position"), lightPos[2].x, lightPos[2].y, lightPos[2].z);
-	glUniform3f(glGetUniformLocation(shader, "pointLights[2].ambient"), 0.25f, 0.25f, 0.0f);
-	glUniform3f(glGetUniformLocation(shader, "pointLights[2].diffuse"), 0.25f, 0.25f, 0.0f);
-	glUniform3f(glGetUniformLocation(shader, "pointLights[2].specular"), 0.75f, 0.75f, 0.0f);
+	glUniform3f(glGetUniformLocation(shader, "pointLights[2].ambient"), 0.5f, 0.5f, 0.0f);
+	glUniform3f(glGetUniformLocation(shader, "pointLights[2].diffuse"), 0.5f, 0.5f, 0.0f);
+	glUniform3f(glGetUniformLocation(shader, "pointLights[2].specular"), 0.5f, 0.5f, 0.0f);
 	glUniform1f(glGetUniformLocation(shader, "pointLights[2].constant"), 1.0f);
-	glUniform1f(glGetUniformLocation(shader, "pointLights[2].linear"), 0.09f);
-	glUniform1f(glGetUniformLocation(shader, "pointLights[2].quadratic"), 0.032f);
+	glUniform1f(glGetUniformLocation(shader, "pointLights[2].linear"), 0.7f);
+	glUniform1f(glGetUniformLocation(shader, "pointLights[2].quadratic"), 1.8f);
 
 	//LOOP
 
@@ -606,6 +607,11 @@ void Demo::Render() {
 		glUniform1f(glGetUniformLocation(simpleDepthShader, "far_plane"), far_plane);
 		glUniform3f(glGetUniformLocation(simpleDepthShader, "lightPos"), lightPos[i].x, lightPos[i].y, lightPos[i].z);
 		mi1.DrawAll(simpleDepthShader);
+		ms1.DrawAll(simpleDepthShader);
+		person1.DrawAll(simpleDepthShader);
+		person2.DrawAll(simpleDepthShader);
+		person3.DrawAll(simpleDepthShader);
+		bs1.DrawAll(simpleDepthShader);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	}
@@ -628,7 +634,24 @@ void Demo::Render() {
 	glUniform1i(glGetUniformLocation(shader, "shadows"), shadows); // enable/disable shadows by pressing 'SPACE'
 	glUniform1f(glGetUniformLocation(shader, "far_plane"), far_plane);
 
+	for (unsigned int i = 1; i < 4; ++i)
+	{
+		glActiveTexture(GL_TEXTURE1 + i);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, depthCubeMap[i-1]);
+		glUniform1i(glGetUniformLocation(shader, ("depthMap[" + std::to_string(i - 1) + "]").c_str()), i+1);
+	}
+
+	//Draw Lingkungan Museum
 	mi1.DrawAll(shader);
+
+	//Draw Pedang
+	ms1.DrawAll(shader);
+	bs1.DrawAll(shader);
+
+	//DrawPerson
+	person1.DrawAll(shader);
+	person2.DrawAll(shader);
+	person3.DrawAll(shader);
 
 	//FOR OBJEKT 
 	
@@ -694,14 +717,7 @@ void Demo::Render() {
 	//
 	//mi1.DrawAll();
 
-	////Draw Pedang
-	////ms1.DrawAll();
-	////bs1.DrawAll();
-
-	////DrawPerson
-	//person1.DrawAll();
-	//person2.DrawAll();
-	//person3.DrawAll();
+	
 
 	//FOR LAMP
 
@@ -717,11 +733,13 @@ void Demo::Render() {
 	GLint viewLoc2 = glGetUniformLocation(this->lightShader, "view");
 	glUniformMatrix4fv(viewLoc2, 1, GL_FALSE, glm::value_ptr(view2));
 
-	////Draw OBJEKT using lightShader
-	DrawLight(xLight, yLight, zLight, 1.0, 1.0, 1.0);
-	DrawLight(0.0, 8.0, -15.0, 1.0, 0.0, 0.0);
+	//Draw OBJEKT using lightShader
+	//Light 0
+	DrawLight(lightPos[0].x, lightPos[0].y, lightPos[0].z, 1.0, 1.0, 1.0);
+	//Light 1
+	DrawLight(lightPos[1].x, lightPos[1].y, lightPos[1].z, 1.0, 0.0, 0.0);
 	//DrawLight(0.0, 8.0, 5.0, 1.0, 0.0, 1.0);
-
+	//Light 2
 	DrawLightSegitiga(0, -0.1 - 0.05, -22.35, 1.0, 1.0, 0.0);
 	DrawLightSegitiga(0.09, -0.275 - 0.05, -22.35, 1.0, 1.0, 0.0);
 	DrawLightSegitiga(-0.09, -0.275 - 0.05, -22.35, 1.0, 1.0, 0.0);
@@ -738,7 +756,7 @@ void Demo::InitCamera()
 {
 	posCamX = 0.0f;
 	posCamY = 1.0f;
-	posCamZ = 15.0f;
+	posCamZ = -20.0f;
 	viewCamX = 0.0f;
 	viewCamY = 1.0f;
 	viewCamZ = 0.0f;

@@ -459,7 +459,8 @@ void BusterSword::BuildTexturedBilahKiri(GLuint shaderProgram3) {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-void BusterSword::DrawAll() {
+void BusterSword::DrawAll(GLuint shaderProgram) {
+	shaderProgram1 = shaderProgram;
 	//1 kotak -> 0.0625
 	//2 kotak -> 0.125
 	//3 kotak -> 0.1875

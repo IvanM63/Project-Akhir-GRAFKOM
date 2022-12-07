@@ -1,13 +1,14 @@
 #version 330 core
 out vec4 FragColor;
 
-#define NR_POINT_LIGHTS 2
+#define NR_POINT_LIGHTS 3
 
 struct Material {
     sampler2D diffuse;
     sampler2D specular;    
     float shininess;
-    samplerCube depthMap[NR_POINT_LIGHTS];
+    vec3 objectColor;
+    
 };
 
 struct PointLight {    
@@ -17,6 +18,7 @@ struct PointLight {
     float linear;
     float quadratic;  
 
+    vec3 color;
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
@@ -33,9 +35,11 @@ uniform vec3 viewPos;
 
 uniform Material material;
 uniform PointLight pointLights[NR_POINT_LIGHTS];
+uniform samplerCube depthMap[NR_POINT_LIGHTS];
 
 uniform float far_plane;
 uniform bool shadows;
+
 
 // function prototypes
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
@@ -54,17 +58,17 @@ vec3 gridSamplingDisk[20] = vec3[]
 float ShadowCalculation(PointLight light, vec3 fragPos, int x)
 {
     // get vector between fragment position and light position
-    vec3 fragToLight = fragPos - light.position;
+    vec3 fragToLight = fs_in.FragPos - light.position;
     // now get current linear depth as the length between the fragment and light position
     float currentDepth = length(fragToLight);
     float shadow = 0.0;
     float bias = 0.15;
     int samples = 20;
-    float viewDistance = length(viewPos - fragPos);
+    float viewDistance = length(viewPos - fs_in.FragPos);
     float diskRadius = (1.0 + (viewDistance / far_plane)) / 25.0;
     for(int i = 0; i < samples; ++i)
     {
-        float closestDepth = texture(material.depthMap[x], fragToLight + gridSamplingDisk[i] * diskRadius).r;
+        float closestDepth = texture(depthMap[x], fragToLight + gridSamplingDisk[i] * diskRadius).r;
         closestDepth *= far_plane;   // undo mapping [0;1]
         if(currentDepth - bias > closestDepth)
             shadow += 1.0;

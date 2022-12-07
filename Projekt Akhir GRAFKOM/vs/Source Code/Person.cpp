@@ -458,7 +458,9 @@ void Person::BuildLegs() {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-void Person::DrawAll() {
+void Person::DrawAll(GLuint shaderProgram) {
+	//Masukin shaderProgram dari input ke shaderProgram kelas ini
+	this->shaderProgram = shaderProgram;
 	//1 kotak -> 0.0625
 	//2 kotak -> 0.125
 	//3 kotak -> 0.1875

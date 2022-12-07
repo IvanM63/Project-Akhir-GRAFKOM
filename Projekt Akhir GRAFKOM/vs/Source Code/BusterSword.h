@@ -18,7 +18,7 @@ public:
 	void BuildTexturedBilahKiri(GLuint shaderProgram3);
 	void BuildAll(GLuint shaderProgram3);
 	//Render Objekt
-	void DrawAll();
+	void DrawAll(GLuint shaderProgram);
 	void DrawColoredCube(float xPos, float yPos, float zPos, float xSize, float ySize, float zSize, float rColor, float gColor, float bColor);
 	void DrawColoredPrism(float xPos, float yPos, float zPos, float xSize, float ySize, float zSize, float rColor, float gColor, float bColor);
 	void DrawColoredPrismBilahLancip(float xPos, float yPos, float zPos, float xSize, float ySize, float zSize, float rColor, float gColor, float bColor);
@@ -33,7 +33,7 @@ private:
 	GLuint stextureBilahKiri, textureBilahKiri, VBOb,VAOb,EBOb;
 	float mX = -1.5;
 	float mY = 0.25;
-	float mZ = -8.0;
+	float mZ = 8.0;
 	float sX = 0;
 	float sY = 0;
 	float sZ = 0;

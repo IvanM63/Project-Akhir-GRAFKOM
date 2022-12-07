@@ -23,12 +23,17 @@ public:
 	void BuildLegs();
 
 	//Draw Objekt
-	void DrawAll();
+	void DrawAll(GLuint shaderProgram);
 	void DrawHead(float xPos, float yPos, float zPos, float xSize, float ySize, float zSize);
 	void DrawBody(float xPos, float yPos, float zPos, float xSize, float ySize, float zSize);
 	void DrawArms(float xPos, float yPos, float zPos, float xSize, float ySize, float zSize);
 	void DrawLegs(float xPos, float yPos, float zPos, float xSize, float ySize, float zSize);
 	
+	//Posisi Person
+	float mX = 0;
+	float mY = -0.1875;
+	float mZ = 0;
+
 private:
 	GLuint shaderProgram;
 	GLuint headVBO, headVAO, headEBO, headTexture, headTextures;
@@ -38,8 +43,5 @@ private:
 	const char *textureLoc = "knight_skin.png";
 	float angle = 3.14159f;
 
-	//Posisi Person
-	float mX = 0;
-	float mY = -0.1875;
-	float mZ = 0 ;
+	
 };

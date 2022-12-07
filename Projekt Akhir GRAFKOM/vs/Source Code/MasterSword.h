@@ -11,16 +11,21 @@ public:
 	MasterSword();
 	float moveX = 0;
 	float anglep = 0;
-	void BuildCube(GLuint shaderProgram3);
-	void DrawAll();
-	void DrawColoredCube(float xPos, float yPos, float zPos, float xSize, float ySize, float zSize, float rColor, float gColor, float bColor);
+	GLuint textureColor[5], stextureColor[5];
+	//GLuint textureCyan, stextureCyan;
+	//GLuint textureCyan, stextureCyan;
+	void BuildAll();
+	void BuildCube();
+	void DrawAll(GLuint shaderProgram);
+	void DrawColoredCube(float xPos, float yPos, float zPos, float xSize, float ySize, float zSize, float rColor, float gColor, float bColor, int i);
 	void scaling(float x, float y, float z);
+	void loadColor(const char* textureLoc, int i);
 
 private:
-	GLuint shaderProgram1, VBO3, VAO3, EBO3, texture3;
+	GLuint shaderProgram, VBO3, VAO3, EBO3, texture3;
 	float mX = 0;
-	float mY = 1.55;
-	float mZ = -25;
+	float mY = 1.77;
+	float mZ = -25.375;
 	float sX = 0;
 	float sY = 0;
 	float sZ = 0;

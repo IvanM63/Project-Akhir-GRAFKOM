@@ -8,6 +8,7 @@
 #include "Camera.h"
 #include "MasterSword.h"
 #include "BusterSword.h"
+#include "lightSaber.h"
 #include "MuseumIndoor.h"
 #include "Person.h"
 
@@ -76,15 +77,15 @@ private:
 	void DrawPlane(GLuint shader);
 
 	GLuint shader, simpleDepthShader;
-	const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
+	const unsigned int SHADOW_WIDTH = 512, SHADOW_HEIGHT = 512;
 
-	unsigned int depthCubeMap[2];
-	unsigned int depthMapFBO[2];
+	unsigned int depthCubeMap[3];
+	unsigned int depthMapFBO[3];
 
-	glm::vec3 lightPos[2] = {
-		glm::vec3(0.0, 5.0, 0.0),
-		glm::vec3(0.0, 5.0, 5.0),
-		//glm::vec3(0.0, 0.1, -20.5)
+	glm::vec3 lightPos[3] = {
+		glm::vec3(0.0, 5.0, 10.0),
+		glm::vec3(0.0, 1.0, 15.0),
+		glm::vec3(0.0, 0.1, -21.5)
 	};
 
 	unsigned int sizeOfLights = sizeof(depthCubeMap) / sizeof(depthCubeMap[0]);

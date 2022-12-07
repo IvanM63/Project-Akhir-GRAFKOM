@@ -1,8 +1,9 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(534,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Lesson05.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   Demo.cpp
-F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\MasterSword.h(22,11): warning C4305: 'initializing': truncation from 'double' to 'float'
-F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Demo.cpp(500,8): warning C4553: '==': result of expression not used; did you intend '='?
-F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Demo.cpp(725,57): warning C4305: 'argument': truncation from 'double' to 'float'
-F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Demo.cpp(726,62): warning C4305: 'argument': truncation from 'double' to 'float'
-F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Demo.cpp(727,63): warning C4305: 'argument': truncation from 'double' to 'float'
+F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\MasterSword.h(27,11): warning C4305: 'initializing': truncation from 'double' to 'float'
+F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Demo.cpp(501,8): warning C4553: '==': result of expression not used; did you intend '='?
+F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Demo.cpp(546,50): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Demo.cpp(743,57): warning C4305: 'argument': truncation from 'double' to 'float'
+F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Demo.cpp(744,62): warning C4305: 'argument': truncation from 'double' to 'float'
+F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Demo.cpp(745,63): warning C4305: 'argument': truncation from 'double' to 'float'
   Lesson05.vcxproj -> F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Debug\Projekt Akhir GRAFKOM.exe

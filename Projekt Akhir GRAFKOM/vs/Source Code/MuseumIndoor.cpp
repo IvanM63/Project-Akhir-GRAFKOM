@@ -592,10 +592,10 @@ void MuseumIndoor::BuildPedestal1(){
 	float vertices[] = {
 		// format position, tex coords
 		// front
-		-0.75, -0.32,  0.29, 0, 0, 0.0f,  0.0f,  1.0f, // 0
+		-0.75, -0.32,  0.29, 0, 0,  0.0f,  0.0f,  1.0f, // 0
 		 0.75, -0.32,  0.29, 1, 0,  0.0f,  0.0f,  1.0f, // 1
 		 0.25,  0.32,  0.29, 1, 1,  0.0f,  0.0f,  1.0f, // 2
-		-0.25,  0.32,  0.29, 0, 1, 0.0f,  0.0f,  1.0f, // 3
+		-0.25,  0.32,  0.29, 0, 1,  0.0f,  0.0f,  1.0f, // 3
 
 		// right
 		 0.25,  0.32,  0.29, 0, 0, 1.0f,  0.0f,  0.0f, // 4
@@ -696,11 +696,11 @@ void MuseumIndoor::DrawLantai() {
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, textureLantai);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, stexture2);
 
-	for (unsigned int i = 0; i < sizeOfLights; ++i) {
-		glActiveTexture(GL_TEXTURE1 + i + 1);
-		glBindTexture(GL_TEXTURE_CUBE_MAP, depthCubeMap[i]);
-	}
+	GLint material_shininess = glGetUniformLocation(shaderProgram, "material.shininess");
+	glUniform1f(material_shininess, 64.0f);
 
 	glBindVertexArray(VAOLantai); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
 
@@ -720,10 +720,7 @@ void MuseumIndoor::DrawKarpet() {
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, textureKarpet);
 
-	for (unsigned int i = 0; i < sizeOfLights; ++i) {
-		glActiveTexture(GL_TEXTURE1 + i + 1);
-		glBindTexture(GL_TEXTURE_CUBE_MAP, depthCubeMap[i]);
-	}
+	
 
 	glBindVertexArray(VAOKarpet); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
 
@@ -742,19 +739,12 @@ void MuseumIndoor::DrawDinding() {
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, textureDinding);
-
-	for (unsigned int i = 0; i < sizeOfLights; ++i) {
-		glActiveTexture(GL_TEXTURE1 + i + 1);
-		glBindTexture(GL_TEXTURE_CUBE_MAP, depthCubeMap[i]);
-	}
-
-	//Specular
-	GLint light_specular = glGetUniformLocation(shaderProgram, "light.specular");
-	glUniform3f(light_specular, 0.2f, 0.2f, 0.2f);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, stextureDinding);
 
 	// material properties
 	GLint material_shininess = glGetUniformLocation(shaderProgram, "material.shininess");
-	glUniform1f(material_shininess, 32.0f);
+	glUniform1f(material_shininess, 64.0f);
 
 	glBindVertexArray(VAODinding); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
 
@@ -774,10 +764,7 @@ void MuseumIndoor::DrawDoor() {
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, textureDoor);
 
-	for (unsigned int i = 0; i < sizeOfLights; ++i) {
-		glActiveTexture(GL_TEXTURE1 + i + 1);
-		glBindTexture(GL_TEXTURE_CUBE_MAP, depthCubeMap[i]);
-	}
+	
 
 	glBindVertexArray(VAODoor); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
 
@@ -798,10 +785,7 @@ void MuseumIndoor::DrawPillar(float xPos, float zPos)
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texturePillar);
 
-	for (unsigned int i = 0; i < sizeOfLights; ++i) {
-		glActiveTexture(GL_TEXTURE1 + i + 1);
-		glBindTexture(GL_TEXTURE_CUBE_MAP, depthCubeMap[i]);
-	}
+	
 
 	glBindVertexArray(VAOPillar); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
 
@@ -854,10 +838,7 @@ void MuseumIndoor::DrawPedestal1(float xPos, float yPos, float zPos){
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texturePedestal1);
 
-	for (unsigned int i = 0; i < sizeOfLights; ++i) {
-		glActiveTexture(GL_TEXTURE1 + i + 1);
-		glBindTexture(GL_TEXTURE_CUBE_MAP, depthCubeMap[i]);
-	}
+	
 
 	glBindVertexArray(VAOPedestal1);
 
