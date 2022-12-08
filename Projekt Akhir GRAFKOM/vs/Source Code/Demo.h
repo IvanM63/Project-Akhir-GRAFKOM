@@ -8,7 +8,7 @@
 #include "Camera.h"
 #include "MasterSword.h"
 #include "BusterSword.h"
-#include "lightSaber.h"
+#include "LightSaber.h"
 #include "MuseumIndoor.h"
 #include "Person.h"
 
@@ -34,6 +34,7 @@ private:
 	//Inisiasi Pedang
 	MasterSword ms1;
 	BusterSword bs1;
+	LightSaber ls1;
 
 	//Inisiasi Person
 	Person person1, person2, person3;
@@ -45,16 +46,6 @@ private:
 	void BuildLightSegitiga();
 	void DrawLight(float lightX, float lightY, float lightZ, float colorR, float colorG, float colorB);
 	void DrawLightSegitiga(float lightX, float lightY, float lightZ, float colorR, float colorG, float colorB);
-
-	//Posisi Light Pos
-	//Light 1
-	float xLight = 0.0f;
-	float yLight = 8.0f;
-	float zLight = 15.0f;
-
-	//Light 2
-	
-	//Light 3
 
 	GLuint shadowmapShader, cubeVBO, cubeVAO, cubeEBO, cube_texture, textureCubeSpecular, planeVBO, planeVAO, planeEBO, plane_texture, stexture, stexture2;
 
@@ -79,18 +70,20 @@ private:
 	GLuint shader, simpleDepthShader;
 	const unsigned int SHADOW_WIDTH = 512, SHADOW_HEIGHT = 512;
 
-	unsigned int depthCubeMap[3];
-	unsigned int depthMapFBO[3];
+	unsigned int depthCubeMap[4];
+	unsigned int depthMapFBO[4];
 
-	glm::vec3 lightPos[3] = {
-		glm::vec3(0.0, 5.0, 10.0),
-		glm::vec3(0.0, 1.0, 15.0),
-		glm::vec3(0.0, 0.1, -21.5)
-	};
+	glm::vec3 lightPos[4];
 
 	unsigned int sizeOfLights = sizeof(depthCubeMap) / sizeof(depthCubeMap[0]);
 
 	bool shadows = true;
 	bool shadowsKeyPressed = false;
+
+	//Posisi dari Master Sword Pedestial sama Lampu Kuning
+	glm::vec3 masterPos = glm::vec3(0.0, 0.25, -21.0);
+
+	//Posisi dari LightSaber
+	glm::vec3 saberPos = glm::vec3(8.0, -0.5, -15.0);
 };
 

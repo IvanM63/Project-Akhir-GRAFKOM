@@ -1,9 +1,19 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(534,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Lesson05.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   Demo.cpp
-F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\MasterSword.h(27,11): warning C4305: 'initializing': truncation from 'double' to 'float'
-F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Demo.cpp(501,8): warning C4553: '==': result of expression not used; did you intend '='?
-F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Demo.cpp(546,50): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Demo.cpp(743,57): warning C4305: 'argument': truncation from 'double' to 'float'
-F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Demo.cpp(744,62): warning C4305: 'argument': truncation from 'double' to 'float'
-F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Demo.cpp(745,63): warning C4305: 'argument': truncation from 'double' to 'float'
+F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\MasterSword.h(32,11): warning C4305: 'initializing': truncation from 'double' to 'float'
+F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Demo.cpp(513,8): warning C4553: '==': result of expression not used; did you intend '='?
+F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Demo.cpp(558,50): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Demo.cpp(767,77): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Demo.cpp(767,57): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Demo.cpp(768,77): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Demo.cpp(768,57): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Demo.cpp(768,26): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Demo.cpp(769,77): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Demo.cpp(769,57): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Demo.cpp(769,26): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+SOIL.lib(image_DXT.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'SOIL.lib(image_DXT.obj)' or at 'F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Debug\vc110.pdb'; linking object as if no debug info
+SOIL.lib(image_helper.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'SOIL.lib(image_helper.obj)' or at 'F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Debug\vc110.pdb'; linking object as if no debug info
+SOIL.lib(SOIL.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'SOIL.lib(SOIL.obj)' or at 'F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Debug\vc110.pdb'; linking object as if no debug info
+SOIL.lib(stb_image_aug.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'SOIL.lib(stb_image_aug.obj)' or at 'F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Debug\vc110.pdb'; linking object as if no debug info
   Lesson05.vcxproj -> F:\Kuli Ah\Semester 5\Grafika Komputer\Project-Akhir-GRAFKOM\Projekt Akhir GRAFKOM\vs\Source Code\Debug\Projekt Akhir GRAFKOM.exe

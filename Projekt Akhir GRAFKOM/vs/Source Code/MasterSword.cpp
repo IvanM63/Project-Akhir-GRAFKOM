@@ -222,3 +222,10 @@ void MasterSword::loadColor(const char* textureLoc, int i) {
 	SOIL_free_image_data(image);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
+
+void MasterSword::setPosition(glm::vec3 position) {
+	//this->position = position;
+	mX += position.x;
+	mY += position.y;
+	mZ += position.z;
+}

@@ -1,7 +1,7 @@
 #version 330 core
 out vec4 FragColor;
 
-#define NR_POINT_LIGHTS 3
+#define NR_POINT_LIGHTS 4
 
 struct Material {
     sampler2D diffuse;

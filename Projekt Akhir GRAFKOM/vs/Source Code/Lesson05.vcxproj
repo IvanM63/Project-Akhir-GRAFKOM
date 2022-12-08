@@ -128,7 +128,7 @@
     <ClCompile Include="..\..\deps\include\glad\glad.c" />
     <ClCompile Include="BusterSword.cpp" />
     <ClCompile Include="Demo.cpp" />
-    <ClCompile Include="lightSaber.cpp" />
+    <ClCompile Include="LightSaber.cpp" />
     <ClCompile Include="MasterSword.cpp" />
     <ClCompile Include="MuseumIndoor.cpp" />
     <ClCompile Include="Person.cpp" />
@@ -139,7 +139,7 @@
     <ClInclude Include="BusterSword.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Demo.h" />
-    <ClInclude Include="lightSaber.h" />
+    <ClInclude Include="LightSaber.h" />
     <ClInclude Include="MasterSword.h" />
     <ClInclude Include="MuseumIndoor.h" />
     <ClInclude Include="Person.h" />

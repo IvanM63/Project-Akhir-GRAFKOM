@@ -365,10 +365,8 @@ void Demo::DrawTexturedCube(GLuint shader)
 }
 
 void Demo::Init() {
-	// build and compile our shader program
+	//|----- Build and Compile Our Shader Program -----|\\
 	// ------------------------------------
-	//texturedShader = BuildShader("vertexShader.vert", "fragmentShader.frag", nullptr);
-	//shaderProgram = BuildShader("texturedShader.vert", "texturedShader.frag", nullptr);
 	lightShader = BuildShader("lightShader.vert", "lightShader.frag", nullptr);
 	shader = BuildShader("point_shadow.vert", "point_shadow.frag", nullptr);
 	simpleDepthShader = BuildShader("point_shadows_depth.vert", "point_shadows_depth.frag", "point_shadows_depth.geom");
@@ -378,7 +376,7 @@ void Demo::Init() {
 
 	InitCamera();
 
-	// configure depth map FBO i = 0
+	// Configure depthMap 
 	// -----------------------
 
 	for (unsigned int x = 0; x < sizeOfLights; ++x) {
@@ -404,12 +402,28 @@ void Demo::Init() {
 
 	//----------------------------------------//
 
+	//Position For Lightning
+	lightPos[0] = glm::vec3(0.0, 5.0,  15.0); //Putih Lampu Atas
+	lightPos[1] = glm::vec3(saberPos.x, saberPos.y + 1.5, saberPos.z); //Merah LightSaber
+	lightPos[2] = glm::vec3(masterPos.x, masterPos.y, masterPos.z + 1.0); //Kuning Pedestal Master Sword
+	lightPos[3] = glm::vec3(0.0, 5.0, -16.5); //Putih Lampu Atas Tempat Pedang	  
+
+	//|------- BUILD FUNCTION ALL -------|\\
+
 	//Build Lingkungan Musium
 	mi1.BuildAll(depthCubeMap, sizeOfLights);
 
-	//Build Swords
+	//Build Master Sword 1
 	ms1.BuildAll();
+	ms1.setPosition(masterPos);
+	mi1.positionPedestal1(masterPos);
+
+	//Build Buster Sword 1
 	bs1.BuildAll(shaderProgram);
+
+	//Build LightSaber 1	
+	ls1.BuildAll();
+	ls1.setPosition(lightPos[1]);
 
 	//Build Lampu Beda shader
 	BuildLight();
@@ -432,12 +446,6 @@ void Demo::Init() {
 	UseShader(shader);
 	glUniform1i(glGetUniformLocation(shader, "material.diffuse"), 0);
 	glUniform1i(glGetUniformLocation(shader, "material.specular"), 1);
-	//glUniform1i(glGetUniformLocation(shader, "depthMap"), 2);
-
-
-	/*UseShader(shaderProgram);
-	glUniform1i(glGetUniformLocation(shaderProgram, "material.diffuse"), 0);
-	glUniform1i(glGetUniformLocation(shaderProgram, "material.specular"), 1);*/
 }
 
 void Demo::DeInit() {
@@ -486,6 +494,10 @@ void Demo::ProcessInput(GLFWwindow* window) {
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+		StrafeCamera(CAMERA_SPEED);
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
 		StrafeCamera(CAMERA_SPEED);
 	}
 
@@ -565,14 +577,14 @@ void Demo::Render() {
 	glUniform1f(glGetUniformLocation(shader, "pointLights[0].constant"), 1.0f);
 	glUniform1f(glGetUniformLocation(shader, "pointLights[0].linear"), 0.14f);
 	glUniform1f(glGetUniformLocation(shader, "pointLights[0].quadratic"), 0.07f);
-	// point light 2 merah
+	// point light 2 Merah LightSaber
 	glUniform3f(glGetUniformLocation(shader, "pointLights[1].position"), lightPos[1].x, lightPos[1].y, lightPos[1].z);
 	glUniform3f(glGetUniformLocation(shader, "pointLights[1].ambient"), 0.5f, 0.0f, 0.0f);
 	glUniform3f(glGetUniformLocation(shader, "pointLights[1].diffuse"), 0.5f, 0.0f, 0.0f);
 	glUniform3f(glGetUniformLocation(shader, "pointLights[1].specular"), 0.5f, 0.0f, 0.0f);
 	glUniform1f(glGetUniformLocation(shader, "pointLights[1].constant"), 1.0f);
-	glUniform1f(glGetUniformLocation(shader, "pointLights[1].linear"), 0.14f);
-	glUniform1f(glGetUniformLocation(shader, "pointLights[1].quadratic"), 0.07f);
+	glUniform1f(glGetUniformLocation(shader, "pointLights[1].linear"), 0.7f);
+	glUniform1f(glGetUniformLocation(shader, "pointLights[1].quadratic"), 1.8f);
 	// point light 4 Kuning
 	glUniform3f(glGetUniformLocation(shader, "pointLights[2].position"), lightPos[2].x, lightPos[2].y, lightPos[2].z);
 	glUniform3f(glGetUniformLocation(shader, "pointLights[2].ambient"), 0.5f, 0.5f, 0.0f);
@@ -581,6 +593,14 @@ void Demo::Render() {
 	glUniform1f(glGetUniformLocation(shader, "pointLights[2].constant"), 1.0f);
 	glUniform1f(glGetUniformLocation(shader, "pointLights[2].linear"), 0.7f);
 	glUniform1f(glGetUniformLocation(shader, "pointLights[2].quadratic"), 1.8f);
+	// point light 1 putih
+	glUniform3f(glGetUniformLocation(shader, "pointLights[3].position"), lightPos[3].x, lightPos[3].y, lightPos[3].z);
+	glUniform3f(glGetUniformLocation(shader, "pointLights[3].ambient"), 0.5f, 0.5f, 0.5f);
+	glUniform3f(glGetUniformLocation(shader, "pointLights[3].diffuse"), 0.5f, 0.5f, 0.5f);
+	glUniform3f(glGetUniformLocation(shader, "pointLights[3].specular"), 0.5f, 0.5f, 0.5f);
+	glUniform1f(glGetUniformLocation(shader, "pointLights[3].constant"), 1.0f);
+	glUniform1f(glGetUniformLocation(shader, "pointLights[3].linear"), 0.07f);
+	glUniform1f(glGetUniformLocation(shader, "pointLights[3].quadratic"), 0.017f);
 
 	//LOOP
 
@@ -612,6 +632,7 @@ void Demo::Render() {
 		person2.DrawAll(simpleDepthShader);
 		person3.DrawAll(simpleDepthShader);
 		bs1.DrawAll(simpleDepthShader);
+		ls1.DrawAll(simpleDepthShader);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	}
@@ -647,6 +668,7 @@ void Demo::Render() {
 	//Draw Pedang
 	ms1.DrawAll(shader);
 	bs1.DrawAll(shader);
+	ls1.DrawAll(shader);
 
 	//DrawPerson
 	person1.DrawAll(shader);
@@ -733,16 +755,23 @@ void Demo::Render() {
 	GLint viewLoc2 = glGetUniformLocation(this->lightShader, "view");
 	glUniformMatrix4fv(viewLoc2, 1, GL_FALSE, glm::value_ptr(view2));
 
-	//Draw OBJEKT using lightShader
-	//Light 0
+	//|__________Draw Light Source using lightShader__________|\\
+	 
+	//Light 0 Putih Lampu Atas
 	DrawLight(lightPos[0].x, lightPos[0].y, lightPos[0].z, 1.0, 1.0, 1.0);
-	//Light 1
-	DrawLight(lightPos[1].x, lightPos[1].y, lightPos[1].z, 1.0, 0.0, 0.0);
-	//DrawLight(0.0, 8.0, 5.0, 1.0, 0.0, 1.0);
-	//Light 2
-	DrawLightSegitiga(0, -0.1 - 0.05, -22.35, 1.0, 1.0, 0.0);
-	DrawLightSegitiga(0.09, -0.275 - 0.05, -22.35, 1.0, 1.0, 0.0);
-	DrawLightSegitiga(-0.09, -0.275 - 0.05, -22.35, 1.0, 1.0, 0.0);
+
+	//Lampu 1 DrawLightSaber 
+	ls1.DrawLight(lightShader);
+
+	//Light 2 Segitiga Kuning
+	DrawLightSegitiga(    0 + masterPos.x, (  -0.1 - 0.05) + masterPos.y, 0.15 + masterPos.z, 1.0, 1.0, 0.0);
+	DrawLightSegitiga( 0.09 + masterPos.x, (-0.275 - 0.05) + masterPos.y, 0.15 + masterPos.z, 1.0, 1.0, 0.0);
+	DrawLightSegitiga(-0.09 + masterPos.x, (-0.275 - 0.05) + masterPos.y, 0.15 + masterPos.z, 1.0, 1.0, 0.0);
+	
+	//Light 3
+	DrawLight(lightPos[3].x, lightPos[3].y, lightPos[3].z, 0.5, 0.5, 0.5);
+
+	//___________________________________________________________
 	glDisable(GL_DEPTH_TEST);
 }
 

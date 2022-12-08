@@ -21,11 +21,16 @@ public:
 	void scaling(float x, float y, float z);
 	void loadColor(const char* textureLoc, int i);
 
+	//Misc Function
+	void setPosition(glm::vec3 position);
+
 private:
 	GLuint shaderProgram, VBO3, VAO3, EBO3, texture3;
+	//glm::vec3 position;
+
 	float mX = 0;
 	float mY = 1.77;
-	float mZ = -25.375;
+	float mZ = -2.875;
 	float sX = 0;
 	float sY = 0;
 	float sZ = 0;

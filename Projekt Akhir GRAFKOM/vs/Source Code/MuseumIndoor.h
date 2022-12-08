@@ -19,6 +19,9 @@ public:
 	void BuildPillar();
 	void BuildDoor();
 	void BuildPedestal1();
+	void BuildTexturedCube();
+
+	void BuildPainting();
 
 	//Render objekt
 	//|-------------------------------------|
@@ -29,6 +32,12 @@ public:
 	void DrawPillar(float xPos, float zPos);
 	void DrawDoor();
 	void DrawPedestal1(float xPos, float yPos, float zPos);
+	void DrawTexturedCube(float xPos, float yPos, float zPos);
+
+	void DrawPainting(float xPos, float yPos, float zPos);
+
+	//Misc Function
+	void positionPedestal1(glm::vec3 vecPedestal1);
 
 private:
 	GLuint shaderProgram;
@@ -39,6 +48,10 @@ private:
 	GLuint VBODoor, VAODoor, EBODoor, textureDoor, stextureDoor;
 	GLuint stexture2, plane_texture, dindingTexture;
 	GLuint VBOPedestal1, VAOPedestal1, EBOPedestal1, texturePedestal1, stexturePedestal1;
+	GLuint VBOCube, VAOCube, EBOCube, textureCube, stextureCube;
+	GLuint VBOPainting, VAOPainting, EBOPainting, texturePainting, stexturePainting;
 	unsigned int * depthCubeMap;
 	unsigned int sizeOfLights;
+	//Posisi pedestal1
+	glm::vec3 vecPedestal1;
 };
