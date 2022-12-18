@@ -21,10 +21,11 @@ public:
 
 private:
 	//static int sizeOfLights = 2;
+	bool run = true;
 
 	GLuint shaderProgram, VBO, VAO, EBO, texture, VBO2, VAO2, EBO2, texture2;
 	GLuint shaderPlane, texturedShader;
-	
+
 	float viewCamX, viewCamY, viewCamZ, upCamX, upCamY, upCamZ, posCamX, posCamY, posCamZ, CAMERA_SPEED, fovy;
 	float angle = 0;
 
@@ -38,7 +39,7 @@ private:
 
 	//Inisiasi Person
 	Person person1, person2, person3;
-	
+
 	//Light cube
 	GLuint lightShader, lightVBO, lightVAO, lightEBO;
 	GLuint lightSegitigaVBO, lightSegitigaVAO, lightSegitigaEBO;
@@ -77,13 +78,39 @@ private:
 
 	unsigned int sizeOfLights = sizeof(depthCubeMap) / sizeof(depthCubeMap[0]);
 
-	bool shadows = true;
-	bool shadowsKeyPressed = false;
+	bool shadows = false;
+	bool shadowsKeyPressed = true;
+
+	bool rightArrow = false;
+	bool rightArrowKeyPressed = true;
+
+	bool lefttArrow = false;
+	bool leftArrowKeyPressed = true;
 
 	//Posisi dari Master Sword Pedestial sama Lampu Kuning
 	glm::vec3 masterPos = glm::vec3(0.0, 0.25, -21.0);
 
 	//Posisi dari LightSaber
-	glm::vec3 saberPos = glm::vec3(8.0, -0.5, -15.0);
+	glm::vec3 saberPos = glm::vec3(5.0, -1.0, -14.0);
+
+	//Posisi dari Buster Sword
+	glm::vec3 busterPos = glm::vec3(-5.0, 0.5, -16.25);
+
+	//Light Config KECERAHAN CAHAYA
+	int lk = 2;
+	float lightConfig[7][2] = {
+		{0.7, 1.8}, {0.35, 0.44}, {0.22, 0.20}, // 0 1 2
+		{0.14, 0.07}, {0.09, 0.032}, {0.07, 0.017}, {0.045, 0.0075} // 3 4 5 6
+	};
+
+	//LIGHT WARNA CAHAYA
+	int lc = 0;
+	glm::vec3 lightColor[4]{
+		glm::vec3(0.5f, 0.5f, 0.5f), // PUTIH
+		glm::vec3(0.5f, 0.0f, 0.0f), // MERAH
+		glm::vec3(0.0f, 0.0f, 0.5f), // BIRU
+		glm::vec3(0.75f, 0.75f, 0.0f), // KUNING
+
+	};
 };
 

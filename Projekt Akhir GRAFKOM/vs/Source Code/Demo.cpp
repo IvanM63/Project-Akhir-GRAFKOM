@@ -419,7 +419,8 @@ void Demo::Init() {
 	mi1.positionPedestal1(masterPos);
 
 	//Build Buster Sword 1
-	bs1.BuildAll(shaderProgram);
+	bs1.BuildAll();
+	bs1.setPosition(busterPos);
 
 	//Build LightSaber 1	
 	ls1.BuildAll();
@@ -438,7 +439,7 @@ void Demo::Init() {
 	person2.position(2, 0, 23);
 
 	//Build Person 3
-	person3.BuildAll(shaderProgram, "knight_skin.png");
+	person3.BuildAll(shaderProgram, "king_skin.png");
 	person3.position(0, 0, 15);
 	person3.changeRotationX(0);
 
@@ -446,6 +447,8 @@ void Demo::Init() {
 	UseShader(shader);
 	glUniform1i(glGetUniformLocation(shader, "material.diffuse"), 0);
 	glUniform1i(glGetUniformLocation(shader, "material.specular"), 1);
+	//std::cout << lightConfig[6][0] << '\n';
+	//std::cout << lightConfig[6][1];
 }
 
 void Demo::DeInit() {
@@ -466,6 +469,56 @@ void Demo::ProcessInput(GLFWwindow* window) {
 		glfwSetWindowShouldClose(window, true);
 	}
 
+	//CHANGE LAMPU WARNA
+
+	if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) {
+		lc = 0;
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS) {
+		lc = 1;
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS) {
+		lc = 2;
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS) {
+		lc = 3;
+	}
+
+	//Change Lightning in Tempat Pedang
+	//PENCET ARROW KANAN
+	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS && rightArrowKeyPressed) {
+		if (lk > 6) {
+			lk = 0;
+		}
+		else {
+			lk++;
+		}
+		rightArrowKeyPressed = !rightArrowKeyPressed;
+	}
+	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_RELEASE)
+	{
+		rightArrowKeyPressed = true;
+	}
+
+	//PENCET ARROW KIRI
+	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS && leftArrowKeyPressed) {
+		if (lk < 0) {
+			lk = 6;
+		}
+		else {
+			lk--;
+		}
+		leftArrowKeyPressed = !leftArrowKeyPressed;
+	}
+	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_RELEASE)
+	{
+		leftArrowKeyPressed = true;
+	}
+
+	//Camera Config
 	// zoom camera
 	// -----------
 	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS) {
@@ -497,21 +550,24 @@ void Demo::ProcessInput(GLFWwindow* window) {
 		StrafeCamera(CAMERA_SPEED);
 	}
 
-	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
-		StrafeCamera(CAMERA_SPEED);
+	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS && !shadowsKeyPressed)
+	{
+		shadows = !shadows;
+		shadowsKeyPressed = true;
+	}
+	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_RELEASE)
+	{
+		shadowsKeyPressed = false;
 	}
 
 	// update camera speed
-	bool run = false;
+	
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
-		if (run == false) {
-			CAMERA_SPEED = 0.01f;
-			run = true;
-		}
-		else if (run == true) {
-			CAMERA_SPEED = 0.005f;
-			run == false;
-		}
+		CAMERA_SPEED = 0.01f;
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
+		CAMERA_SPEED = 0.005f;
 	}
 
 	// update camera rotation
@@ -555,7 +611,9 @@ void Demo::Update(double deltaTime) {
 	//std::cout << sizeOfLights;
 	//zLight = 24.0f * cos(glfwGetTime()/2);
 	//lightPos[2].z = 8.0 * cos(glfwGetTime());
-	person3.position(0, 0, 15.0 * cos(glfwGetTime())/100);
+
+	
+	person3.position(0, 0, 30.0 * cos(glfwGetTime())/100);
 }
 
 void Demo::Render() {
@@ -568,7 +626,10 @@ void Demo::Render() {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	UseShader(shader);
 	// point light 1 putih
 	glUniform3f(glGetUniformLocation(shader, "pointLights[0].position"), lightPos[0].x, lightPos[0].y, lightPos[0].z);
 	glUniform3f(glGetUniformLocation(shader, "pointLights[0].ambient"), 0.5f, 0.5f, 0.5f);
@@ -593,14 +654,14 @@ void Demo::Render() {
 	glUniform1f(glGetUniformLocation(shader, "pointLights[2].constant"), 1.0f);
 	glUniform1f(glGetUniformLocation(shader, "pointLights[2].linear"), 0.7f);
 	glUniform1f(glGetUniformLocation(shader, "pointLights[2].quadratic"), 1.8f);
-	// point light 1 putih
+	// point light 1 putih Tempat Pedang
 	glUniform3f(glGetUniformLocation(shader, "pointLights[3].position"), lightPos[3].x, lightPos[3].y, lightPos[3].z);
-	glUniform3f(glGetUniformLocation(shader, "pointLights[3].ambient"), 0.5f, 0.5f, 0.5f);
-	glUniform3f(glGetUniformLocation(shader, "pointLights[3].diffuse"), 0.5f, 0.5f, 0.5f);
-	glUniform3f(glGetUniformLocation(shader, "pointLights[3].specular"), 0.5f, 0.5f, 0.5f);
+	glUniform3fv(glGetUniformLocation(shader, "pointLights[3].ambient"), 1, &lightColor[lc][0]);
+	glUniform3fv(glGetUniformLocation(shader, "pointLights[3].diffuse"), 1, &lightColor[lc][0]);
+	glUniform3fv(glGetUniformLocation(shader, "pointLights[3].specular"), 1, &lightColor[lc][0]);
 	glUniform1f(glGetUniformLocation(shader, "pointLights[3].constant"), 1.0f);
-	glUniform1f(glGetUniformLocation(shader, "pointLights[3].linear"), 0.07f);
-	glUniform1f(glGetUniformLocation(shader, "pointLights[3].quadratic"), 0.017f);
+	glUniform1f(glGetUniformLocation(shader, "pointLights[3].linear"), lightConfig[lk][0]);
+	glUniform1f(glGetUniformLocation(shader, "pointLights[3].quadratic"), lightConfig[lk][1]);
 
 	//LOOP
 
@@ -649,6 +710,7 @@ void Demo::Render() {
 	glm::mat4 projection = glm::perspective(45.0f, (float)screenWidth / (float)screenHeight, 0.1f, 100.0f);
 	glm::mat4 view = glm::lookAt(glm::vec3(posCamX, posCamY, posCamZ), glm::vec3(viewCamX, viewCamY, viewCamZ), glm::vec3(upCamX, upCamY, upCamZ));
 	glUniformMatrix4fv(glGetUniformLocation(shader, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+
 	glUniformMatrix4fv(glGetUniformLocation(shader, "view"), 1, GL_FALSE, glm::value_ptr(view));
 	// set lighting uniforms
 	glUniform3f(glGetUniformLocation(shader, "viewPos"), posCamX, posCamY, posCamZ);
@@ -676,7 +738,7 @@ void Demo::Render() {
 	person3.DrawAll(shader);
 
 	//FOR OBJEKT 
-	
+	//UNSUSED
 	//UseShader(shaderProgram);
 
 	//GLint view_pos = glGetUniformLocation(shaderProgram, "viewPos");
@@ -769,9 +831,10 @@ void Demo::Render() {
 	DrawLightSegitiga(-0.09 + masterPos.x, (-0.275 - 0.05) + masterPos.y, 0.15 + masterPos.z, 1.0, 1.0, 0.0);
 	
 	//Light 3
-	DrawLight(lightPos[3].x, lightPos[3].y, lightPos[3].z, 0.5, 0.5, 0.5);
+	DrawLight(lightPos[3].x, lightPos[3].y, lightPos[3].z, lightColor[lc].x, lightColor[lc].y, lightColor[lc].z);
 
 	//___________________________________________________________
+	glDisable(GL_BLEND);
 	glDisable(GL_DEPTH_TEST);
 }
 
@@ -785,7 +848,7 @@ void Demo::InitCamera()
 {
 	posCamX = 0.0f;
 	posCamY = 1.0f;
-	posCamZ = -20.0f;
+	posCamZ = 15.0f;
 	viewCamX = 0.0f;
 	viewCamY = 1.0f;
 	viewCamZ = 0.0f;

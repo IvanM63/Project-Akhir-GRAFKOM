@@ -4,17 +4,23 @@ BusterSword::BusterSword() {
 
 }
 
-void BusterSword::BuildAll(GLuint shaderProgram3) {
-	BuildCube(shaderProgram3);
-	BuildPrism(shaderProgram3);
-	BuildPrismBilahTumpul(shaderProgram3);
-	BuildPrismBilahTajam(shaderProgram3);
-	BuildTexturedBilahKiri(shaderProgram3);
+void BusterSword::BuildAll() {
+	BuildCube();
+	BuildPrism();
+	BuildPrismBilahTumpul();
+	BuildPrismBilahTajam();
+	BuildTexturedBilahKiri();
+
+	//Load Texture warna
+	loadTexture("colorTexture/coklat.png", 0);
+	loadTexture("colorTexture/yellow_softDark.png", 1);
+	loadTexture("colorTexture/light_grey.png", 2);
+	loadTexture("colorTexture/dark_grey.png", 3);
 }
 
-void BusterSword::BuildCube(GLuint shaderProgram3) {
+void BusterSword::BuildCube() {
 	//Taro shaderProgram ke this
-	shaderProgram1 = shaderProgram3;
+
 	// load image into texture memory
 	// ------------------------------
 	// Load and create a texture 
@@ -101,9 +107,9 @@ void BusterSword::BuildCube(GLuint shaderProgram3) {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-void BusterSword::BuildPrism(GLuint shaderProgram3) {
+void BusterSword::BuildPrism() {
 	//Taro shaderProgram ke this
-	shaderProgram1 = shaderProgram3;
+	// 
 	// load image into texture memory
 	// ------------------------------
 	// Load and create a texture 
@@ -184,9 +190,9 @@ void BusterSword::BuildPrism(GLuint shaderProgram3) {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-void BusterSword::BuildPrismBilahTumpul(GLuint shaderProgram3) {
+void BusterSword::BuildPrismBilahTumpul() {
 	//Taro shaderProgram ke this
-	shaderProgram1 = shaderProgram3;
+
 	// load image into texture memory
 	// ------------------------------
 	// Load and create a texture 
@@ -266,9 +272,9 @@ void BusterSword::BuildPrismBilahTumpul(GLuint shaderProgram3) {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-void BusterSword::BuildPrismBilahTajam(GLuint shaderProgram3) {
+void BusterSword::BuildPrismBilahTajam() {
 	//Taro shaderProgram ke this
-	shaderProgram1 = shaderProgram3;
+
 	// load image into texture memory
 	// ------------------------------
 	// Load and create a texture 
@@ -348,9 +354,9 @@ void BusterSword::BuildPrismBilahTajam(GLuint shaderProgram3) {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-void BusterSword::BuildTexturedBilahKiri(GLuint shaderProgram3) {
+void BusterSword::BuildTexturedBilahKiri() {
 	//Taro shaderProgram ke this
-	shaderProgram1 = shaderProgram3;
+
 	// load image into texture memory
 	// ------------------------------
 	// Load and create a texture 
@@ -471,51 +477,48 @@ void BusterSword::DrawAll(GLuint shaderProgram) {
 	float busterSize = 2.25;
 
 	//Pegangan
-	DrawColoredCube(0       , 0.375 / busterSize , 5 / busterSize, 0.1875 / busterSize, 0.9375 / busterSize, 0.1875 / busterSize, 0.60000f, 0.45098f, 0.04314f);
+	DrawColoredCube(0       , 0.375 / busterSize , 5 / busterSize, 0.1875 / busterSize, 0.9375 / busterSize, 0.1875 / busterSize, 0);
 	//gagangTengah
-	DrawColoredCube(0       ,0.90625 / busterSize, 5 / busterSize, 0.3125 / busterSize, 0.125 / busterSize , 0.1875 / busterSize, 0.74118f, 0.74118f, 0.72549f);
+	DrawColoredCube(0       ,0.90625 / busterSize, 5 / busterSize, 0.3125 / busterSize, 0.125 / busterSize , 0.1875 / busterSize, 2);
 	//gagangKuningKiri
-	DrawColoredCube(-0.3125 / busterSize,0.90625 / busterSize, 5 / busterSize, 0.3125 / busterSize, 0.125 / busterSize, 0.1875 / busterSize, 0.85490f, 0.87059f, 0.01569f);
+	DrawColoredCube(-0.3125 / busterSize,0.90625 / busterSize, 5 / busterSize, 0.3125 / busterSize, 0.125 / busterSize, 0.1875 / busterSize, 1);
 	//gagangKuningKiri
-	DrawColoredCube( 0.3125 / busterSize,0.90625 / busterSize, 5 / busterSize, 0.3125 / busterSize, 0.125 / busterSize, 0.1875 / busterSize, 0.85490f, 0.87059f, 0.01569f);
+	DrawColoredCube( 0.3125 / busterSize,0.90625 / busterSize, 5 / busterSize, 0.3125 / busterSize, 0.125 / busterSize, 0.1875 / busterSize, 1);
 
 	//Tengah Atas Gagang
-	DrawColoredCube(0       ,1.21875 / busterSize, 5 / busterSize, 0.3125 / busterSize, 0.5 / busterSize, 0.1875 / busterSize, 0.58039f, 0.58039f, 0.57255f);
+	DrawColoredCube(0       ,1.21875 / busterSize, 5 / busterSize, 0.3125 / busterSize, 0.5 / busterSize, 0.1875 / busterSize, 3);
 	//KuningAtasGagangKiri
-	DrawColoredCube(-0.1875 / busterSize,1.25 / busterSize, 5 / busterSize, 0.0625 / busterSize, 0.5625 / busterSize, 0.1875 / busterSize, 0.85490f, 0.87059f, 0.01569f);
+	DrawColoredCube(-0.1875 / busterSize,1.25 / busterSize, 5 / busterSize, 0.0625 / busterSize, 0.5625 / busterSize, 0.1875 / busterSize, 1);
 	//KuningAtasGagangKiri
-	DrawColoredCube(0.1875 / busterSize,1.25 / busterSize, 5 / busterSize, 0.0625 / busterSize, 0.5625 / busterSize, 0.1875 / busterSize, 0.85490f, 0.87059f, 0.01569f);
+	DrawColoredCube(0.1875 / busterSize,1.25 / busterSize, 5 / busterSize, 0.0625 / busterSize, 0.5625 / busterSize, 0.1875 / busterSize, 1);
 	//KuningAtasGagangAtas
-	DrawColoredCube(0       ,1.5 / busterSize, 5 / busterSize, 0.3125 / busterSize, 0.0625 / busterSize, 0.1875 / busterSize, 0.85490f, 0.87059f, 0.01569f);
+	DrawColoredCube(0       ,1.5 / busterSize, 5 / busterSize, 0.3125 / busterSize, 0.0625 / busterSize, 0.1875 / busterSize, 1);
 
 	//Bilah Pedang Tumpul Kiri
 	//DrawColoredCube(-0.34375 / busterSize,2.53125 / busterSize, 5 / busterSize, 0.25 / busterSize, 3.125 / busterSize, 0.1875 / busterSize, 0.58039f, 0.58039f, 0.57255f);
-	DrawTexturedBilahKiri(-0.34375 / busterSize,2.53125 / busterSize, 5 / busterSize, 0.25 / busterSize, 3.125 / busterSize, 0.1875 / busterSize);
+	DrawTexturedBilahKiri(-0.34375 / busterSize,2.53125 / busterSize, 5 / busterSize, 0.25 / busterSize, 3.125 / busterSize, 0.1875 / busterSize, 3);
 	
 	//Bilah Pedang Tumpul Tengah
-	DrawColoredCube(0       , 2.8125 / busterSize, 5 / busterSize, 0.4375 / busterSize, 2.5625 / busterSize, 0.1875 / busterSize, 0.58039f, 0.58039f, 0.57255f);
+	DrawColoredCube(0       , 2.8125 / busterSize, 5 / busterSize, 0.4375 / busterSize, 2.5625 / busterSize, 0.1875 / busterSize, 3);
 
 	//Prism Bilah Tajam Kanan
-	DrawColoredPrism(0.34375 / busterSize, 2.53125 / busterSize,5 / busterSize, 0.25 / busterSize, 3.125 / busterSize, 0.1875 / busterSize, 0.74118f, 0.74118f, 0.72549f);
+	DrawColoredPrism(0.34375 / busterSize, 2.53125 / busterSize,5 / busterSize, 0.25 / busterSize, 3.125 / busterSize, 0.1875 / busterSize, 2);
 
 	//Prism Bilah Tumpul atas
-	DrawColoredPrismBilahTumpul(-0.125 / busterSize, 4.46875 / busterSize, 5 / busterSize, 0.6875 / busterSize, 0.75 / busterSize, 0.1875 / busterSize, 0.58039f, 0.58039f, 0.57255f);
+	DrawColoredPrismBilahTumpul(-0.125 / busterSize, 4.46875 / busterSize, 5 / busterSize, 0.6875 / busterSize, 0.75 / busterSize, 0.1875 / busterSize, 3);
 
 	//Prism Bilah Lancip Atas
-	DrawColoredPrismBilahLancip(0 / busterSize, 4.59375 / busterSize, 5 / busterSize, 0.46875 / busterSize, 1.0174262872562 / busterSize, 0.1875 / busterSize, 0.74118f, 0.74118f, 0.72549f);
+	DrawColoredPrismBilahLancip(0 / busterSize, 4.59375 / busterSize, 5 / busterSize, 0.46875 / busterSize, 1.0174262872562 / busterSize, 0.1875 / busterSize, 2);
 }
 
-void BusterSword::DrawColoredCube(float xPos, float yPos, float zPos, float xSize, float ySize, float zSize, float rColor, float gColor, float bColor) {
+void BusterSword::DrawColoredCube(float xPos, float yPos, float zPos, float xSize, float ySize, float zSize, int i) {
 	glUseProgram(shaderProgram1);
 
-	//glActiveTexture(GL_TEXTURE0);
-	//glBindTexture(GL_TEXTURE_2D, texture3);
-	//glUniform1i(glGetUniformLocation(shaderProgram1, "ourTexture"), 0);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, textures[i]);
 
 	glBindVertexArray(VAO4); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
 
-	GLint objectColorLoc = glGetUniformLocation(shaderProgram1, "objectColor");
-	glUniform3f(objectColorLoc, rColor, gColor, bColor);
 
 	xPos += mX;
 	yPos += mY;
@@ -537,18 +540,14 @@ void BusterSword::DrawColoredCube(float xPos, float yPos, float zPos, float xSiz
 	glBindVertexArray(0);
 }
 
-void BusterSword::DrawColoredPrism(float xPos, float yPos, float zPos, float xSize, float ySize, float zSize, float rColor, float gColor, float bColor) {
+void BusterSword::DrawColoredPrism(float xPos, float yPos, float zPos, float xSize, float ySize, float zSize, int i) {
 	glUseProgram(shaderProgram1);
 
-	//glActiveTexture(GL_TEXTURE0);
-	//glBindTexture(GL_TEXTURE_2D, texture3);
-	//glUniform1i(glGetUniformLocation(shaderProgram1, "ourTexture"), 0);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, textures[i]);
 
 	glBindVertexArray(VAOPrism); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
 
-	GLint objectColorLoc = glGetUniformLocation(shaderProgram1, "objectColor");
-	glUniform3f(objectColorLoc, rColor, gColor, bColor);
-
 	xPos += mX;
 	yPos += mY;
 	zPos += mZ;
@@ -568,18 +567,14 @@ void BusterSword::DrawColoredPrism(float xPos, float yPos, float zPos, float xSi
 	glBindVertexArray(0);
 }
 
-void BusterSword::DrawColoredPrismBilahTumpul(float xPos, float yPos, float zPos, float xSize, float ySize, float zSize, float rColor, float gColor, float bColor) {
+void BusterSword::DrawColoredPrismBilahTumpul(float xPos, float yPos, float zPos, float xSize, float ySize, float zSize, int i) {
 	glUseProgram(shaderProgram1);
 
-	//glActiveTexture(GL_TEXTURE0);
-	//glBindTexture(GL_TEXTURE_2D, texture3);
-	//glUniform1i(glGetUniformLocation(shaderProgram1, "ourTexture"), 0);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, textures[i]);
 
 	glBindVertexArray(VAOPrismBilahTumpul); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
 
-	GLint objectColorLoc = glGetUniformLocation(shaderProgram1, "objectColor");
-	glUniform3f(objectColorLoc, rColor, gColor, bColor);
-
 	xPos += mX;
 	yPos += mY;
 	zPos += mZ;
@@ -599,17 +594,14 @@ void BusterSword::DrawColoredPrismBilahTumpul(float xPos, float yPos, float zPos
 	glBindVertexArray(0);
 }
 
-void BusterSword::DrawColoredPrismBilahLancip(float xPos, float yPos, float zPos, float xSize, float ySize, float zSize, float rColor, float gColor, float bColor) {
+void BusterSword::DrawColoredPrismBilahLancip(float xPos, float yPos, float zPos, float xSize, float ySize, float zSize, int i) {
 	glUseProgram(shaderProgram1);
 
-	//glActiveTexture(GL_TEXTURE0);
-	//glBindTexture(GL_TEXTURE_2D, texture3);
-	//glUniform1i(glGetUniformLocation(shaderProgram1, "ourTexture"), 0);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, textures[i]);
 
 	glBindVertexArray(VAOPrismBilahLancip); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
 
-	GLint objectColorLoc = glGetUniformLocation(shaderProgram1, "objectColor");
-	glUniform3f(objectColorLoc, rColor, gColor, bColor);
 
 	xPos += mX;
 	yPos += mY;
@@ -630,12 +622,11 @@ void BusterSword::DrawColoredPrismBilahLancip(float xPos, float yPos, float zPos
 	glBindVertexArray(0);
 }
 
-void BusterSword::DrawTexturedBilahKiri(float xPos, float yPos, float zPos, float xSize, float ySize, float zSize) {
+void BusterSword::DrawTexturedBilahKiri(float xPos, float yPos, float zPos, float xSize, float ySize, float zSize, int i) {
 	glUseProgram(shaderProgram1);
 
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, textureBilahKiri);
-	glUniform1i(glGetUniformLocation(this->shaderProgram1, "material.diffuse"), 0);
+	glBindTexture(GL_TEXTURE_2D, textures[i]);
 
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, stextureBilahKiri);
@@ -674,4 +665,36 @@ void BusterSword::scaling(float x, float y, float z) {
 	//sX = p;
 	//sY = p;
 	//sZ = p;
+}
+
+void BusterSword::setPosition(glm::vec3 position) {
+	this->mX = position.x;
+	this->mY = position.y;
+	this->mZ = position.z;
+}
+
+void BusterSword::loadTexture(const char* textureLoc, int i) {
+	// Load and create a texture 
+	glGenTextures(1, &textures[i]);
+	glBindTexture(GL_TEXTURE_2D, textures[i]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	int width, height;
+	unsigned char* image = SOIL_load_image(textureLoc, &width, &height, 0, SOIL_LOAD_RGBA);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	SOIL_free_image_data(image);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	/*glGenTextures(1, &stextures[i]);
+	glBindTexture(GL_TEXTURE_2D, stextures[i]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	image = SOIL_load_image("marble_specular.png", &width, &height, 0, SOIL_LOAD_RGBA);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+	SOIL_free_image_data(image);
+	glBindTexture(GL_TEXTURE_2D, 0);*/
 }

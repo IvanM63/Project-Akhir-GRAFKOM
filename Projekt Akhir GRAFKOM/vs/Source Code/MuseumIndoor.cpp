@@ -5,7 +5,7 @@ MuseumIndoor::MuseumIndoor() {
 }
 
 void MuseumIndoor::BuildAll(unsigned int* depthCubeMap, unsigned int sizeOfLights) {
-
+	
 	//Masukin depthCubeMap
 	this->depthCubeMap = depthCubeMap;
 	this->sizeOfLights = sizeOfLights;
@@ -19,6 +19,117 @@ void MuseumIndoor::BuildAll(unsigned int* depthCubeMap, unsigned int sizeOfLight
 	BuildPedestal1();
 	BuildTexturedCube();
 	BuildPainting();
+	BuildCube();
+
+	//load Texture for painting
+	loadTexture("Painting/painting_zelda.png", 0);
+	loadTexture("Painting/painting_ff7.png", 1);
+	loadTexture("Painting/painting_darth_vader.jpg", 2);
+
+	//load Texture for Pedestal
+	loadTexture("Texture/Brick_06-128x128.png", 3);
+	loadTexture("Texture/Stone_11-128x128.png", 4);
+}
+
+void MuseumIndoor::BuildCube() {
+	// load image into texture memory
+	// ------------------------------
+	// Load and create a texture 
+	glGenTextures(1, &textureCubeB);
+	glBindTexture(GL_TEXTURE_2D, textureCubeB);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	int width, height;
+	unsigned char* image = SOIL_load_image("blending_transparent_window.png", &width, &height, 0, SOIL_LOAD_RGBA);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+	SOIL_free_image_data(image);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	// set up vertex data (and buffer(s)) and configure vertex attributes
+	// ------------------------------------------------------------------
+	float vertices[] = {
+		// format position, tex coords
+		// front
+		-0.5, -0.5, 0.5, 0, 0, 0.0f,  0.0f,  1.0f, // 0
+		 0.5, -0.5, 0.5, 3, 0, 0.0f,  0.0f,  1.0f, // 1
+		 0.5,  0.5, 0.5, 3, 0.5, 0.0f,  0.0f,  1.0f, // 2
+		-0.5,  0.5, 0.5, 0, 0.5, 0.0f,  0.0f,  1.0f, // 3
+
+		// right
+		0.5,  0.5,  0.5, 0, 0, 1.0f,  0.0f,  0.0f, // 4
+		0.5,  0.5, -0.5, 3, 0, 1.0f,  0.0f,  0.0f, // 5
+		0.5, -0.5, -0.5, 3, 0.5, 1.0f,  0.0f,  0.0f, // 6
+		0.5, -0.5,  0.5, 0, 0.5, 1.0f,  0.0f,  0.0f, // 7
+
+		// back
+		-0.5, -0.5, -0.5, 0, 0, 0.0f,  0.0f,  -1.0f, // 8 
+		0.5,  -0.5, -0.5, 1, 0, 0.0f,  0.0f,  -1.0f, // 9
+		0.5,   0.5, -0.5, 1, 1, 0.0f,  0.0f,  -1.0f, // 10
+		-0.5,  0.5, -0.5, 0, 1, 0.0f,  0.0f,  -1.0f, // 11
+
+		// left
+		-0.5, -0.5, -0.5, 0, 0, -1.0f,  0.0f,  0.0f, // 12
+		-0.5, -0.5,  0.5, 3, 0, -1.0f,  0.0f,  0.0f, // 13
+		-0.5,  0.5,  0.5, 3, 0.5, -1.0f,  0.0f,  0.0f, // 14
+		-0.5,  0.5, -0.5, 0, 0.5, -1.0f,  0.0f,  0.0f, // 15
+
+		// upper
+		 0.5, 0.5,  0.5, 0, 0,   0.0f,  1.0f,  0.0f, // 16
+		-0.5, 0.5,  0.5, 3, 0,   0.0f,  1.0f,  0.0f, // 17
+		-0.5, 0.5, -0.5, 3, 3,   0.0f,  1.0f,  0.0f, // 18
+		 0.5, 0.5, -0.5, 0, 3,   0.0f,  1.0f,  0.0f, // 19
+
+		 // bottom
+		 -0.5, -0.5, -0.5, 0, 0,  0.0f,  -1.0f,  0.0f, // 20
+		  0.5, -0.5, -0.5, 1, 0,  0.0f,  -1.0f,  0.0f, // 21
+		  0.5, -0.5,  0.5, 1, 1,  0.0f,  -1.0f,  0.0f, // 22
+		 -0.5, -0.5,  0.5, 0, 1,  0.0f,  -1.0f,  0.0f, // 23
+	};
+
+	unsigned int indices[] = {
+		8,  9,  10, 8,  10, 11,  // back
+		20, 22, 21, 20, 23, 22,   // bottom
+		4,  5,  6,  4,  6,  7,   // right
+		12, 14, 13, 12, 15, 14,  // left
+		16, 18, 17, 16, 19, 18,  // upper
+		0,  1,  2,  0,  2,  3   // front
+
+	};
+
+	glGenVertexArrays(1, &VAOCubeB);
+	glGenBuffers(1, &VBOCubeB);
+	glGenBuffers(1, &EBOCubeB);
+	// bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
+	glBindVertexArray(VAOCubeB);
+
+	glBindBuffer(GL_ARRAY_BUFFER, VBOCubeB);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBOCubeB);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+	// define position pointer layout 0
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(0 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(0);
+
+	// define texcoord pointer layout 1
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(1);
+
+	// define normal pointer layout 2
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(5 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(2);
+
+	// note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	// You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
+	// VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
+	glBindVertexArray(0);
+
+	// remember: do NOT unbind the EBO while a VAO is active as the bound element buffer object IS stored in the VAO; keep the EBO bound.
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
 }
 
 void MuseumIndoor::BuildLantai()
@@ -701,9 +812,9 @@ void MuseumIndoor::BuildTexturedCube() {
 
 		// right
 		0.5,  0.5,  0.5, 0, 0, 1.0f,  0.0f,  0.0f, // 4
-		0.5,  0.5, -0.5, 1, 0, 1.0f,  0.0f,  0.0f, // 5
-		0.5, -0.5, -0.5, 1, 1, 1.0f,  0.0f,  0.0f, // 6
-		0.5, -0.5,  0.5, 0, 1, 1.0f,  0.0f,  0.0f, // 7
+		0.5,  0.5, -0.5, 3, 0, 1.0f,  0.0f,  0.0f, // 5
+		0.5, -0.5, -0.5, 3, 0.5, 1.0f,  0.0f,  0.0f, // 6
+		0.5, -0.5,  0.5, 0, 0.5, 1.0f,  0.0f,  0.0f, // 7
 
 		// back
 		-0.5, -0.5, -0.5, 0, 0, 0.0f,  0.0f,  -1.0f, // 8 
@@ -713,9 +824,9 @@ void MuseumIndoor::BuildTexturedCube() {
 
 		// left
 		-0.5, -0.5, -0.5, 0, 0, -1.0f,  0.0f,  0.0f, // 12
-		-0.5, -0.5,  0.5, 1, 0, -1.0f,  0.0f,  0.0f, // 13
-		-0.5,  0.5,  0.5, 1, 1, -1.0f,  0.0f,  0.0f, // 14
-		-0.5,  0.5, -0.5, 0, 1, -1.0f,  0.0f,  0.0f, // 15
+		-0.5, -0.5,  0.5, 3, 0, -1.0f,  0.0f,  0.0f, // 13
+		-0.5,  0.5,  0.5, 3, 0.5, -1.0f,  0.0f,  0.0f, // 14
+		-0.5,  0.5, -0.5, 0, 0.5, -1.0f,  0.0f,  0.0f, // 15
 
 		// upper
 		 0.5, 0.5,  0.5, 0, 0,   0.0f,  1.0f,  0.0f, // 16
@@ -855,12 +966,53 @@ void MuseumIndoor::DrawAll(GLuint shaderProgram) {
 	//Pintu Masuk
 	DrawDoor();
 
-	//Pedetals Master
+	//Blending Object
+	//DrawCube();
+
+	//Pedetals Master Sword
 	DrawPedestal1((0 + vecPedestal1.x), (-0.25 + vecPedestal1.y), (0.0 + vecPedestal1.z)); // Atasnya
-	DrawTexturedCube(0, -0.375, -21.0); // Bawahnya
+	DrawTexturedCube(0, -0.375, -21.0, 3.5, 0.25, 3.5, 3); // Bawahnya
+
+	//Pedestal Buster Sword
+	DrawTexturedCube(-5, -0.375, -14.0, 2.0, 0.375, 2.0, 4); // Bawahnya
+	DrawTexturedCube(-5, 0, -14.0, 1.375, 0.375, 1.0, 4); // Atasnya
+
+	//Pedestal LightSaber
+	DrawTexturedCube(5, -0.375, -14.0, 2.0, 0.375, 2.0, 4); // Bawahnya
+	DrawTexturedCube(5, 0, -14.0, 1.375, 0.375, 1.0, 4); // Atasnya
 
 	//Draw Painting
-	DrawPainting(0, 8, 0); //Zelda Painting
+	DrawPainting(0, 8, 0, 0, 0); //Zelda Painting DEPAN
+	DrawPainting(15, 8, -14, 1, 1); //FF7 Painting KIRI
+	DrawPainting(34.5, 8, -14, 2, 1); //FF7 Painting KANAN
+
+
+}
+
+void MuseumIndoor::DrawCube()
+{
+	glUseProgram(shaderProgram);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, textureCubeB);
+
+	glBindVertexArray(VAOCubeB); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
+
+	//set mat4 model
+	glm::mat4 model;
+	model = glm::translate(model, glm::vec3(0, 1, 0));
+
+	model = glm::rotate(model, 0.0f, glm::vec3(0, 0, 1));
+
+	model = glm::scale(model, glm::vec3(1, 1, 1));
+
+	GLint modelLoc = glGetUniformLocation(shaderProgram, "model");
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glBindVertexArray(0);
 }
 
 void MuseumIndoor::DrawLantai() {
@@ -1028,11 +1180,11 @@ void MuseumIndoor::DrawPedestal1(float xPos, float yPos, float zPos){
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 }
 
-void MuseumIndoor::DrawTexturedCube(float xPos, float yPos, float zPos)
+void MuseumIndoor::DrawTexturedCube(float xPos, float yPos, float zPos, float xSize, float ySize, float zSize, int i)
 {
 	glUseProgram(shaderProgram);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, textureCube);
+	glBindTexture(GL_TEXTURE_2D, texturePaintings[i]);
 
 	glBindVertexArray(VAOCube);
 
@@ -1042,7 +1194,7 @@ void MuseumIndoor::DrawTexturedCube(float xPos, float yPos, float zPos)
 
 	model = glm::rotate(model, 0.0f, glm::vec3(0, 0, 1));
 
-	model = glm::scale(model, glm::vec3(3.5, 0.25, 3.5));
+	model = glm::scale(model, glm::vec3(xSize, ySize, zSize));
 
 	GLint modelLoc = glGetUniformLocation(shaderProgram, "model");
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
@@ -1051,18 +1203,18 @@ void MuseumIndoor::DrawTexturedCube(float xPos, float yPos, float zPos)
 
 }
 
-void MuseumIndoor::DrawPainting(float xPos, float yPos, float zPos) {
+void MuseumIndoor::DrawPainting(float xPos, float yPos, float zPos, int i, float pos) {
 	glUseProgram(shaderProgram);
 
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texturePainting);
+	glBindTexture(GL_TEXTURE_2D, texturePaintings[i]);
 
 	glBindVertexArray(VAOPainting); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
 
 	glm::mat4 model;
 	model = glm::translate(model, glm::vec3(xPos, yPos, zPos));
 
-	model = glm::rotate(model, 3.14159f, glm::vec3(0, 0, 1));
+	model = glm::rotate(model, 3.14159f, glm::vec3(pos, 0, 1));
 
 	GLint modelLoc = glGetUniformLocation(this->shaderProgram, "model");
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
@@ -1071,6 +1223,32 @@ void MuseumIndoor::DrawPainting(float xPos, float yPos, float zPos) {
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glBindVertexArray(0);
+}
+
+void MuseumIndoor::loadTexture(const char* textureLoc, int i) {
+	// Load and create a texture 
+	glGenTextures(1, &texturePaintings[i]);
+	glBindTexture(GL_TEXTURE_2D, texturePaintings[i]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	int width, height;
+	unsigned char* image = SOIL_load_image(textureLoc, &width, &height, 0, SOIL_LOAD_RGBA);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	SOIL_free_image_data(image);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	glGenTextures(1, &stexturePaintings[i]);
+	glBindTexture(GL_TEXTURE_2D, stexturePaintings[i]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	image = SOIL_load_image("marble_specular.png", &width, &height, 0, SOIL_LOAD_RGBA);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+	SOIL_free_image_data(image);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void MuseumIndoor::positionPedestal1(glm::vec3 vecPedestal1) {

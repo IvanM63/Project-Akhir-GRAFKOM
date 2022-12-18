@@ -32,12 +32,17 @@ public:
 	void DrawPillar(float xPos, float zPos);
 	void DrawDoor();
 	void DrawPedestal1(float xPos, float yPos, float zPos);
-	void DrawTexturedCube(float xPos, float yPos, float zPos);
+	void DrawTexturedCube(float xPos, float yPos, float zPos, float xSize, float ySize, float zSize, int i);
+	//Blend Object Tes
+	void BuildCube();
+	void DrawCube();
 
-	void DrawPainting(float xPos, float yPos, float zPos);
+	void DrawPainting(float xPos, float yPos, float zPos, int i, float pos);
 
 	//Misc Function
 	void positionPedestal1(glm::vec3 vecPedestal1);
+	void loadTexture(const char* textureLoc, int i);
+
 
 private:
 	GLuint shaderProgram;
@@ -46,10 +51,12 @@ private:
 	GLuint VBOPillar, VAOPillar, EBOPillar, texturePillar, stexturePillar;
 	GLuint VBOKarpet, VAOKarpet, EBOKarpet, textureKarpet, stextureKarpet;
 	GLuint VBODoor, VAODoor, EBODoor, textureDoor, stextureDoor;
+	GLuint VBOCubeB, VAOCubeB, EBOCubeB, textureCubeB;
 	GLuint stexture2, plane_texture, dindingTexture;
 	GLuint VBOPedestal1, VAOPedestal1, EBOPedestal1, texturePedestal1, stexturePedestal1;
 	GLuint VBOCube, VAOCube, EBOCube, textureCube, stextureCube;
 	GLuint VBOPainting, VAOPainting, EBOPainting, texturePainting, stexturePainting;
+	GLuint texturePaintings[6], stexturePaintings[6];
 	unsigned int * depthCubeMap;
 	unsigned int sizeOfLights;
 	//Posisi pedestal1
